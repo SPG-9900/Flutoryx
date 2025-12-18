@@ -1,0 +1,79 @@
+name: flutoryx
+description: A production-ready Flutter UI Kit with 22 customizable Material 3 components. Built for scalability, consistency, and developer productivity.
+version: 1.0.0
+homepage: https://github.com/SPG-9900/flutoryx
+repository: https://github.com/SPG-9900/flutoryx
+issue_tracker: https://github.com/SPG-9900/flutoryx/issues
+
+environment:
+  sdk: ^3.10.4
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  assets:
+    - assets/fonts/
+  #
+  # For details regarding assets in packages, see
+  # https://flutter.dev/to/asset-from-package
+  #
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  fonts:
+    - family: Mulish
+      fonts:
+        - asset: assets/fonts/Mulish-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Mulish-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Mulish-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Mulish-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Mulish-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Mulish-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Mulish-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Mulish-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Mulish-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Mulish-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Mulish-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Mulish-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Mulish-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Mulish-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Mulish-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Mulish-BlackItalic.ttf
+          weight: 900
+          style: italic
