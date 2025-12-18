@@ -111,4 +111,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with ❤️ by Prathamesh Sahare ([SPG-9900](https://github.com/SPG-9900))
+Made by Prathamesh Sahare ([SPG-9900](https://github.com/SPG-9900))
