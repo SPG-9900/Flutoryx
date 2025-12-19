@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/logo.png" width="200" alt="Flutoryx Logo" />
+</p>
+
 # Flutoryx UI Kit 🎨
 
 A production-ready, Material 3 compliant Flutter UI library with **25+ customizable components**, adaptive typography, and a robust design system. Built for scalability, performance, and developer productivity.
