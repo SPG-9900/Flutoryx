@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/logo.png" width="200" alt="Flutoryx Logo" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/logo.png" width="800" alt="Flutoryx Logo" />
 </p>
 
 # Flutoryx UI Kit 🎨
