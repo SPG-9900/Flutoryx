@@ -1,5 +1,13 @@
 # Flutoryx UI Kit - CHANGELOG
 
+## [1.1.0] - 2025-12-19
+
+### Added
+- **Navigation**: `AppNavigationBar` for premium Material 3 navigation experience.
+- **Feedback**: `AppSkeleton` for shimmer-based loading placeholders.
+- **Feedback**: `AppEmptyState` for consistent empty list/screen handling.
+- **Feedback**: `AppDialog` enhanced with close button and single-action support.
+
 ## [1.0.0] - 2025-12-19
 
 ### Initial Release 🎉

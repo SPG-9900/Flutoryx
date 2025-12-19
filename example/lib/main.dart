@@ -63,6 +63,7 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
   RangeValues _priceRange = const RangeValues(20, 80);
   final _searchController = TextEditingController();
   final List<String> _selectedTags = ['Flutter'];
+  int _selectedTab = 0;
 
   @override
   void dispose() {
@@ -227,17 +228,6 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               },
             ),
             const SizedBox(height: AppSpacing.m),
-            // AppDropdown<String>(
-            //   value: _selectedCountry,
-            //   labelText: 'Country',
-            //   hintText: 'Select country',
-            //   items: const [
-            //     DropdownMenuItem(value: 'us', child: Text('United States')),
-            //     DropdownMenuItem(value: 'uk', child: Text('United Kingdom')),
-            //     DropdownMenuItem(value: 'ca', child: Text('Canada')),
-            //   ],
-            //   onChanged: (value) => setState(() => _selectedCountry = value),
-            // ),
           ]),
 
           // Custom Dropdowns
@@ -405,13 +395,16 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             AppCard(
               variant: AppCardVariant.elevated,
               title: 'Elevated Card',
-              subtitle: 'With title and subtitle',
               leading: const Icon(Icons.star),
-              child: const Text('Card content goes here'),
               actions: [
-                TextButton(onPressed: () {}, child: const Text('Cancel')),
-                TextButton(onPressed: () {}, child: const Text('OK')),
+                AppButton(
+                  label: 'Cancel',
+                  onPressed: () {},
+                  variant: AppButtonVariant.ghost,
+                ),
+                AppButton(label: 'View', onPressed: () {}),
               ],
+              child: const Text('Card content goes here'),
             ),
             const SizedBox(height: AppSpacing.m),
             AppCard(
@@ -446,11 +439,27 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   variant: AppButtonVariant.outline,
                 ),
                 AppButton(
-                  label: 'Dialog',
+                  label: 'Delete Dialog',
                   onPressed: () => AppDialog.showConfirmation(
                     context: context,
-                    title: 'Confirm',
-                    message: 'Are you sure?',
+                    title: 'Delete Record?',
+                    message:
+                        'Are you sure you want to permanently delete this record?',
+                    confirmLabel: 'Delete',
+                    confirmVariant: AppButtonVariant.danger,
+                  ),
+                  variant: AppButtonVariant.outline,
+                ),
+                AppButton(
+                  label: 'Info Dialog',
+                  onPressed: () => AppDialog.showConfirmation(
+                    context: context,
+                    title: 'New Update!',
+                    message:
+                        'A new version of Flutoryx is available with improved dialogs.',
+                    confirmLabel: 'Got it',
+                    showCancelButton: false,
+                    showCloseButton: true,
                   ),
                   variant: AppButtonVariant.outline,
                 ),
@@ -531,6 +540,72 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               'https://picsum.photos/400/200',
               height: 200,
               borderRadius: AppRadius.m,
+            ),
+          ]),
+
+          // Advanced Components
+          _buildSection('Advanced (Skeleton & Empty State)', [
+            Row(
+              children: [
+                const AppSkeleton.circle(size: 40),
+                const SizedBox(width: AppSpacing.m),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSkeleton.text(width: 150),
+                      const SizedBox(height: AppSpacing.xs),
+                      AppSkeleton.text(width: 100),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.l),
+            const AppSkeleton(height: 100),
+            const SizedBox(height: AppSpacing.xl),
+
+            // Empty State
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
+                borderRadius: AppRadius.roundedM,
+              ),
+              child: AppEmptyState(
+                icon: Icons.inbox_outlined,
+                title: 'Nothing here yet',
+                subtitle: 'Your inbox is clear! Check back later for updates.',
+                actionLabel: 'Refresh',
+                onActionPressed: () {},
+              ),
+            ),
+          ]),
+
+          _buildSection('Navigation Bar', [
+            const AppText(
+              'Interactive Bottom Navigation Bar:',
+              variant: AppTextVariant.bodyMedium,
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppNavigationBar(
+              currentIndex: _selectedTab,
+              onTap: (index) => setState(() => _selectedTab = index),
+              items: const [
+                AppNavigationItem(
+                  label: 'Home',
+                  icon: Icons.home_outlined,
+                  selectedIcon: Icons.home,
+                ),
+                AppNavigationItem(label: 'Search', icon: Icons.search),
+                AppNavigationItem(
+                  label: 'Profile',
+                  icon: Icons.person_outline,
+                  selectedIcon: Icons.person,
+                ),
+              ],
             ),
           ]),
         ],

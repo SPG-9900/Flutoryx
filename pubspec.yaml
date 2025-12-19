@@ -1,6 +1,6 @@
 name: flutoryx
-description: A production-ready Flutter UI Kit with 22 customizable Material 3 components. Built for scalability, consistency, and developer productivity.
-version: 1.0.0
+description: A production-ready, Material 3 compliant Flutter UI library with 25+ customizable components.
+version: 1.1.0
 homepage: https://github.com/SPG-9900/flutoryx
 repository: https://github.com/SPG-9900/flutoryx
 issue_tracker: https://github.com/SPG-9900/flutoryx/issues

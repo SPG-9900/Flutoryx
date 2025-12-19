@@ -1,6 +1,6 @@
 # Flutoryx UI Kit 🎨
 
-A production-ready, Material 3 compliant Flutter UI library with **22+ customizable components**, adaptive typography, and a robust design system. Built for scalability, performance, and developer productivity.
+A production-ready, Material 3 compliant Flutter UI library with **25+ customizable components**, adaptive typography, and a robust design system. Built for scalability, performance, and developer productivity.
 
 [![pub package](https://img.shields.io/pub/v/flutoryx.svg)](https://pub.dev/packages/flutoryx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
 
 ---
 
-## 📦 Components Library (22)
+## 📦 Components Library (25)
 
 ### **Inputs & Forms**
 - **AppCustomDropdown**: Searchable, multi-select, avatar-ready, and animation-rich.
@@ -77,6 +77,9 @@ class MyApp extends StatelessWidget {
 - **AppButton**: 5 variants (Primary, Secondary, Outline, Ghost, Danger) + loading states.
 - **AppIconButton**: Standard M3 icon button variants.
 
+### **Navigation**
+- **AppNavigationBar**: Premium bottom bar with indicator and label support.
+
 ### **Feedback & Status**
 - **AppSnackBar**: 4 context-aware types (Success, Error, Warning, Info) with floating support.
 - **AppBadge / AppDotBadge**: Notification and status indicators.
@@ -84,6 +87,8 @@ class MyApp extends StatelessWidget {
 - **AppTooltip**: Customizable positioning and timing.
 - **AppDialog**: Confirmation and custom modal dialogs.
 - **AppBottomSheet**: Modal and list-helper bottom sheets.
+- **AppSkeleton**: Shimmer effect loading placeholders (Circle, Text, Rectangle).
+- **AppEmptyState**: Icon + Title + Subtitle template for "No Data" screens.
 
 ### **Layout & Containers**
 - **AppCard**: Elevated, filled, and outlined options with header/footer support.

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../foundation/spacing.dart';
 import '../../foundation/radius.dart';
 import '../../foundation/typography.dart';
+import '../buttons/app_button.dart';
+import '../text/app_text.dart';
 
 /// A Material Design dialog component.
 ///
@@ -15,6 +17,7 @@ class AppDialog extends StatelessWidget {
     this.actions,
     this.icon,
     this.contentPadding,
+    this.showCloseButton = false,
   });
 
   /// Optional title of the dialog.
@@ -32,6 +35,9 @@ class AppDialog extends StatelessWidget {
   /// Padding for the content area.
   final EdgeInsets? contentPadding;
 
+  /// Whether to show a close icon in the top-right corner.
+  final bool showCloseButton;
+
   /// Shows a dialog with the given configuration.
   static Future<T?> show<T>({
     required BuildContext context,
@@ -40,6 +46,7 @@ class AppDialog extends StatelessWidget {
     List<Widget>? actions,
     Widget? icon,
     bool barrierDismissible = true,
+    bool showCloseButton = false,
   }) {
     return showDialog<T>(
       context: context,
@@ -49,37 +56,40 @@ class AppDialog extends StatelessWidget {
         content: content,
         actions: actions,
         icon: icon,
+        showCloseButton: showCloseButton,
       ),
     );
   }
 
-  /// Shows a confirmation dialog with OK/Cancel buttons.
+  /// Shows a confirmation dialog with customizable OK/Cancel buttons.
   static Future<bool?> showConfirmation({
     required BuildContext context,
     required String title,
     required String message,
-    String confirmText = 'OK',
-    String cancelText = 'Cancel',
-    bool isDangerous = false,
+    String confirmLabel = 'Confirm',
+    String cancelLabel = 'Cancel',
+    AppButtonVariant confirmVariant = AppButtonVariant.primary,
+    AppButtonVariant cancelVariant = AppButtonVariant.ghost,
+    bool showCloseButton = false,
+    bool showCancelButton = true,
   }) {
     return showDialog<bool>(
       context: context,
       builder: (context) => AppDialog(
         title: title,
-        content: Text(message),
+        showCloseButton: showCloseButton,
+        content: AppText(message, variant: AppTextVariant.bodyMedium),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(cancelText),
-          ),
-          TextButton(
+          if (showCancelButton)
+            AppButton(
+              label: cancelLabel,
+              variant: cancelVariant,
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+          AppButton(
+            label: confirmLabel,
+            variant: confirmVariant,
             onPressed: () => Navigator.of(context).pop(true),
-            style: isDangerous
-                ? TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.error,
-                  )
-                : null,
-            child: Text(confirmText),
           ),
         ],
       ),
@@ -90,8 +100,34 @@ class AppDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       icon: icon,
-      title: title != null
-          ? Text(title!, style: AppTypography.titleLarge(context))
+      title: (title != null || showCloseButton)
+          ? Stack(
+              clipBehavior: Clip.none,
+              children: [
+                if (title != null)
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: showCloseButton ? AppSpacing.xl : 0,
+                    ),
+                    child: Text(
+                      title!,
+                      style: AppTypography.titleLarge(context),
+                    ),
+                  ),
+                if (showCloseButton)
+                  Positioned(
+                    right: -AppSpacing.m,
+                    top: -AppSpacing.m,
+                    child: IconButton(
+                      icon: const Icon(Icons.close, size: 20),
+                      onPressed: () => Navigator.of(context).pop(),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      splashRadius: 20,
+                    ),
+                  ),
+              ],
+            )
           : null,
       content: content,
       contentPadding:
@@ -103,9 +139,13 @@ class AppDialog extends StatelessWidget {
             AppSpacing.l,
           ),
       actions: actions,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.l),
+      actionsPadding: const EdgeInsets.fromLTRB(
+        AppSpacing.l,
+        0,
+        AppSpacing.l,
+        AppSpacing.l,
       ),
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedL),
     );
   }
 }
