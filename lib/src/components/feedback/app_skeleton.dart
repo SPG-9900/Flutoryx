@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../foundation/radius.dart';
+import '../../foundation/colors.dart';
 
 enum AppSkeletonVariant { circle, rectangle, text }
 
@@ -9,6 +10,15 @@ class AppSkeleton extends StatefulWidget {
   final double? height;
   final AppSkeletonVariant variant;
   final BorderRadius? borderRadius;
+  final Color? baseColor;
+  final Color? highlightColor;
+  final Duration? duration;
+  final Curve? curve;
+  final AlignmentGeometry? begin;
+  final AlignmentGeometry? end;
+  final bool enabled;
+  final Color? borderColor;
+  final double? borderWidth;
 
   const AppSkeleton({
     super.key,
@@ -16,19 +26,51 @@ class AppSkeleton extends StatefulWidget {
     this.height,
     this.variant = AppSkeletonVariant.rectangle,
     this.borderRadius,
+    this.baseColor,
+    this.highlightColor,
+    this.duration,
+    this.curve,
+    this.begin,
+    this.end,
+    this.enabled = true,
+    this.borderColor,
+    this.borderWidth,
   });
 
   /// Shorthand for a circular skeleton.
-  const AppSkeleton.circle({super.key, required double size})
-    : width = size,
-      height = size,
-      variant = AppSkeletonVariant.circle,
-      borderRadius = null;
+  const AppSkeleton.circle({
+    super.key,
+    required double size,
+    this.baseColor,
+    this.highlightColor,
+    this.duration,
+    this.curve,
+    this.begin,
+    this.end,
+    this.enabled = true,
+    this.borderColor,
+    this.borderWidth,
+  }) : width = size,
+       height = size,
+       variant = AppSkeletonVariant.circle,
+       borderRadius = null;
 
   /// Shorthand for a text line skeleton.
-  const AppSkeleton.text({super.key, this.width, this.height = 12})
-    : variant = AppSkeletonVariant.text,
-      borderRadius = null;
+  const AppSkeleton.text({
+    super.key,
+    this.width,
+    this.height = 12,
+    this.baseColor,
+    this.highlightColor,
+    this.duration,
+    this.curve,
+    this.begin,
+    this.end,
+    this.enabled = true,
+    this.borderColor,
+    this.borderWidth,
+  }) : variant = AppSkeletonVariant.text,
+       borderRadius = null;
 
   @override
   State<AppSkeleton> createState() => _AppSkeletonState();
@@ -44,12 +86,35 @@ class _AppSkeletonState extends State<AppSkeleton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    )..repeat();
+      duration: widget.duration ?? const Duration(milliseconds: 1500),
+    );
+
+    if (widget.enabled) {
+      _controller.repeat();
+    }
 
     _animation = Tween<double>(begin: -2.0, end: 2.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine),
+      CurvedAnimation(
+        parent: _controller,
+        curve: widget.curve ?? Curves.easeInOutSine,
+      ),
     );
+  }
+
+  @override
+  void didUpdateWidget(AppSkeleton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.enabled != oldWidget.enabled) {
+      if (widget.enabled) {
+        _controller.repeat();
+      } else {
+        _controller.stop();
+      }
+    }
+    if (widget.duration != oldWidget.duration) {
+      _controller.duration =
+          widget.duration ?? const Duration(milliseconds: 1500);
+    }
   }
 
   @override
@@ -63,8 +128,11 @@ class _AppSkeletonState extends State<AppSkeleton>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final baseColor = isDark ? Colors.grey[800]! : Colors.grey[300]!;
-    final highlightColor = isDark ? Colors.grey[700]! : Colors.grey[100]!;
+    final effectiveBaseColor =
+        widget.baseColor ?? (isDark ? AppColors.grey800 : AppColors.grey300);
+    final effectiveHighlightColor =
+        widget.highlightColor ??
+        (isDark ? AppColors.grey700 : AppColors.grey100);
 
     return AnimatedBuilder(
       animation: _animation,
@@ -82,13 +150,26 @@ class _AppSkeletonState extends State<AppSkeleton>
                       (widget.variant == AppSkeletonVariant.text
                           ? AppRadius.roundedS
                           : AppRadius.roundedM),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [baseColor, highlightColor, baseColor],
-              stops: [0.0, (_animation.value + 1.0) / 2.0, 1.0],
-              transform: _SlidingGradientTransform(_animation.value),
-            ),
+            border: widget.borderColor != null
+                ? Border.all(
+                    color: widget.borderColor!,
+                    width: widget.borderWidth ?? 1,
+                  )
+                : null,
+            gradient: widget.enabled
+                ? LinearGradient(
+                    begin: widget.begin ?? Alignment.topLeft,
+                    end: widget.end ?? Alignment.bottomRight,
+                    colors: [
+                      effectiveBaseColor,
+                      effectiveHighlightColor,
+                      effectiveBaseColor,
+                    ],
+                    stops: [0.0, (_animation.value + 1.0) / 2.0, 1.0],
+                    transform: _SlidingGradientTransform(_animation.value),
+                  )
+                : null,
+            color: widget.enabled ? null : effectiveBaseColor,
           ),
         );
       },

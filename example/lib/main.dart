@@ -56,7 +56,7 @@ class ComponentShowcase extends StatefulWidget {
 class _ComponentShowcaseState extends State<ComponentShowcase> {
   // Form state
   bool _checkbox = false;
-  bool _switch = true;
+  bool _switch = false;
   String? _selectedGender;
   var _customMultiSelect = <String>[];
   double _volume = 50;
@@ -143,6 +143,38 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               ],
             ),
             const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Customized Buttons:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            Wrap(
+              spacing: AppSpacing.s,
+              runSpacing: AppSpacing.s,
+              children: [
+                AppButton(
+                  label: 'Custom Colors',
+                  onPressed: () {},
+                  backgroundColor: AppColors.teal600,
+                  foregroundColor: AppColors.white,
+                ),
+                AppButton(
+                  label: 'Rounded XL',
+                  onPressed: () {},
+                  borderRadius: 30,
+                  variant: AppButtonVariant.outline,
+                ),
+                AppButton(
+                  label: 'Tight Padding',
+                  onPressed: () {},
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.m),
             Wrap(
               spacing: AppSpacing.s,
               children: [
@@ -188,6 +220,18 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               obscureText: true,
             ),
             const SizedBox(height: AppSpacing.m),
+            AppTextFormField(
+              labelText: 'Custom Styled Field',
+              hintText: 'Custom border color and radius',
+              borderColor: AppColors.purple200,
+              focusedBorderColor: AppColors.purple600,
+              borderRadius: BorderRadius.circular(20),
+              prefixIcon: const Icon(
+                Icons.auto_awesome,
+                color: AppColors.purple600,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.m),
             AppSearchField(
               controller: _searchController,
               hintText: 'Search...',
@@ -198,6 +242,15 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   type: AppSnackBarType.info,
                 );
               },
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppSearchField(
+              hintText: 'Custom Colored Search...',
+              backgroundColor: AppColors.slate50,
+              borderColor: AppColors.slate300,
+              focusedBorderColor: AppColors.indigo500,
+              borderRadius: 30,
+              prefixIcon: const Icon(Icons.search, color: AppColors.indigo500),
             ),
           ]),
 
@@ -212,6 +265,15 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               value: _switch,
               onChanged: (value) => setState(() => _switch = value),
               label: 'Enable notifications',
+            ),
+            AppSwitch(
+              value: _checkbox, // use checkbox state for variety
+              onChanged: (value) => setState(() => _checkbox = value),
+              label: 'Custom Colored Switch',
+              activeColor: AppColors.teal500,
+              activeThumbColor: AppColors.white,
+              inactiveTrackColor: AppColors.grey200,
+              inactiveThumbColor: AppColors.grey400,
             ),
           ]),
 
@@ -334,6 +396,32 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               ],
               onChanged: (value) => debugPrint('Assigned to: $value'),
             ),
+            const SizedBox(height: AppSpacing.m),
+            AppCustomDropdown<String>(
+              labelText: 'Highly Customized Dropdown',
+              hintText: 'Custom styles everywhere',
+              backgroundColor: AppColors.violet50,
+              borderRadius: 16,
+              borderColor: AppColors.violet200,
+              focusedBorderColor: AppColors.violet600,
+              iconColor: AppColors.violet600,
+              overlayColor: AppColors.violet50,
+              overlayBorderRadius: 16,
+              overlayBorderColor: AppColors.violet200,
+              itemTextStyle: AppTypography.bodyMedium(
+                context,
+              ).copyWith(color: AppColors.violet800),
+              selectedItemTextStyle: AppTypography.bodyMedium(context).copyWith(
+                color: AppColors.violet900,
+                fontWeight: FontWeight.bold,
+              ),
+              items: const [
+                AppDropdownItem(value: '1', label: 'Custom Item 1'),
+                AppDropdownItem(value: '2', label: 'Custom Item 2'),
+                AppDropdownItem(value: '3', label: 'Custom Item 3'),
+              ],
+              onChanged: (value) {},
+            ),
           ]),
 
           // Sliders
@@ -344,11 +432,31 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               labelText: 'Volume',
               divisions: 10,
             ),
+            AppSlider(
+              value: _volume,
+              onChanged: (value) => setState(() => _volume = value),
+              labelText: 'Custom Slider',
+              activeColor: AppColors.indigo600,
+              inactiveColor: AppColors.indigo50,
+              thumbColor: AppColors.indigo700,
+              valueStyle: AppTypography.titleSmall(context).copyWith(
+                color: AppColors.indigo700,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             AppRangeSlider(
               values: _priceRange,
               onChanged: (values) => setState(() => _priceRange = values),
               labelText: 'Price Range (\$)',
               divisions: 10,
+            ),
+            AppRangeSlider(
+              values: _priceRange,
+              onChanged: (values) => setState(() => _priceRange = values),
+              labelText: 'Custom Range Slider',
+              activeColor: AppColors.teal500,
+              thumbColor: AppColors.teal700,
+              overlayColor: AppColors.teal100.withValues(alpha: 0.3),
             ),
           ]),
 
@@ -360,6 +468,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   label: 'Flutter',
                   type: AppChipType.filter,
                   selected: _selectedTags.contains('Flutter'),
+                  selectedColor: AppColors.green600,
+                  selectedLabelStyle: const TextStyle(color: AppColors.white),
                   onSelected: (selected) {
                     setState(() {
                       selected
@@ -372,6 +482,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   label: 'Dart',
                   type: AppChipType.filter,
                   selected: _selectedTags.contains('Dart'),
+                  selectedColor: AppColors.green600,
+                  selectedLabelStyle: const TextStyle(color: AppColors.white),
                   onSelected: (selected) {
                     setState(() {
                       selected
@@ -385,6 +497,19 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   type: AppChipType.action,
                   onSelected: (_) =>
                       AppSnackBar.show(context, message: 'Chip tapped!'),
+                ),
+                AppChip(
+                  label: 'Custom Styled',
+                  type: AppChipType.choice,
+                  selected: true,
+                  selectedColor: AppColors.violet100,
+                  selectedBorderColor: AppColors.violet600,
+                  selectedLabelStyle: const TextStyle(
+                    color: AppColors.violet900,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  borderRadius: 4,
+                  onSelected: (_) {},
                 ),
               ],
             ),
@@ -404,13 +529,32 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                 ),
                 AppButton(label: 'View', onPressed: () {}),
               ],
-              child: const Text('Card content goes here'),
+              child: const AppText(
+                'Card content goes here',
+                variant: AppTextVariant.bodyMedium,
+              ),
             ),
             const SizedBox(height: AppSpacing.m),
             AppCard(
               variant: AppCardVariant.outlined,
               title: 'Outlined Card',
-              child: const Text('Simple outlined card'),
+              child: const AppText(
+                'Simple outlined card',
+                variant: AppTextVariant.bodyMedium,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppCard(
+              backgroundColor: AppColors.orange50,
+              borderRadius: 24,
+              borderColor: AppColors.orange600,
+              borderWidth: 2,
+              variant: AppCardVariant.filled,
+              title: 'Highly Customized Card',
+              child: const AppText(
+                'Custom colors, radius, and border',
+                variant: AppTextVariant.bodyMedium,
+              ),
             ),
           ]),
 
@@ -470,7 +614,7 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                     title: 'Bottom Sheet',
                     child: const Padding(
                       padding: EdgeInsets.all(AppSpacing.l),
-                      child: Text('Bottom sheet content'),
+                      child: AppText('Bottom sheet content'),
                     ),
                   ),
                   variant: AppButtonVariant.outline,
@@ -490,6 +634,29 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   message: 'This is a tooltip',
                   child: const Icon(Icons.info),
                 ),
+                const SizedBox(width: AppSpacing.l),
+                AppBadge(
+                  count: 12,
+                  backgroundColor: AppColors.green600,
+                  textColor: AppColors.white,
+                  borderRadius: 4,
+                  child: const Icon(Icons.check_circle_outline),
+                ),
+                const SizedBox(width: AppSpacing.l),
+                const AppLoader.circular(
+                  size: AppLoaderSize.medium,
+                  color: AppColors.orange600,
+                  backgroundColor: AppColors.orange50,
+                  strokeWidth: 6,
+                ),
+                const SizedBox(width: AppSpacing.l),
+                const Expanded(
+                  child: AppLoader.linear(
+                    color: AppColors.indigo600,
+                    backgroundColor: AppColors.indigo50,
+                    borderRadius: 10,
+                  ),
+                ),
               ],
             ),
           ]),
@@ -504,8 +671,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               title: 'Expandable Tile',
               subtitle: 'Tap to expand',
               children: const [
-                Text('Hidden content 1'),
-                Text('Hidden content 2'),
+                AppText('Hidden content 1'),
+                AppText('Hidden content 2'),
               ],
             ),
           ]),
@@ -533,6 +700,13 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   imageUrl: 'https://picsum.photos/200',
                   size: AppAvatarSize.medium,
                 ),
+                const SizedBox(width: AppSpacing.m),
+                const AppAvatar.initials(
+                  initials: 'CQ',
+                  backgroundColor: AppColors.indigo600,
+                  textColor: AppColors.white,
+                  borderRadius: 12,
+                ),
               ],
             ),
             const SizedBox(height: AppSpacing.m),
@@ -540,6 +714,21 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               'https://picsum.photos/400/200',
               height: 200,
               borderRadius: AppRadius.m,
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppImage.network(
+              'https://picsum.photos/400/201',
+              height: 150,
+              borderRadius: 24,
+              border: Border.all(color: AppColors.indigo600, width: 4),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.indigo600.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+              margin: const EdgeInsets.only(bottom: AppSpacing.m),
             ),
           ]),
 
@@ -560,6 +749,13 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppSkeleton(
+              height: 60,
+              baseColor: AppColors.grey300,
+              highlightColor: AppColors.blue400,
+              borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             const SizedBox(height: AppSpacing.l),
             const AppSkeleton(height: 100),

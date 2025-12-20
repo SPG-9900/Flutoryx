@@ -29,6 +29,19 @@ class AppChip extends StatelessWidget {
     this.avatar,
     this.deleteIcon,
     this.enabled = true,
+    this.backgroundColor,
+    this.selectedColor,
+    this.labelStyle,
+    this.selectedLabelStyle,
+    this.borderRadius,
+    this.borderColor,
+    this.selectedBorderColor,
+    this.deleteIconColor,
+    this.padding,
+    this.labelPadding,
+    this.elevation,
+    this.shadowColor,
+    this.iconTheme,
   });
 
   /// The label text of the chip.
@@ -55,42 +68,129 @@ class AppChip extends StatelessWidget {
   /// Whether the chip is enabled.
   final bool enabled;
 
+  /// Optional background color override.
+  final Color? backgroundColor;
+
+  /// Optional background color when selected.
+  final Color? selectedColor;
+
+  /// Optional text style for the label.
+  final TextStyle? labelStyle;
+
+  /// Optional text style for the label when selected.
+  final TextStyle? selectedLabelStyle;
+
+  /// Optional border radius override.
+  final double? borderRadius;
+
+  /// Optional border color.
+  final Color? borderColor;
+
+  /// Optional border color when selected.
+  final Color? selectedBorderColor;
+
+  /// Optional color for the delete icon.
+  final Color? deleteIconColor;
+
+  /// Optional padding for the chip.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional padding for the label.
+  final EdgeInsetsGeometry? labelPadding;
+
+  /// Optional elevation.
+  final double? elevation;
+
+  /// Optional shadow color.
+  final Color? shadowColor;
+
+  /// Optional icon theme for the avatar.
+  final IconThemeData? iconTheme;
+
   @override
   Widget build(BuildContext context) {
+    final shape = borderRadius != null || borderColor != null
+        ? RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 8),
+            side: borderColor != null
+                ? BorderSide(color: borderColor!)
+                : BorderSide.none,
+          )
+        : null;
+
+    final selectedShape = selectedBorderColor != null
+        ? RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 8),
+            side: BorderSide(color: selectedBorderColor!),
+          )
+        : shape;
+
     switch (type) {
       case AppChipType.input:
         return InputChip(
-          label: Text(label),
+          label: Text(label, style: selected ? selectedLabelStyle : labelStyle),
           selected: selected,
           onSelected: enabled ? onSelected : null,
           onDeleted: enabled ? onDeleted : null,
           avatar: avatar,
           deleteIcon: deleteIcon,
+          backgroundColor: backgroundColor,
+          selectedColor: selectedColor,
+          deleteIconColor: deleteIconColor,
+          padding: padding,
+          labelPadding: labelPadding,
+          elevation: elevation,
+          shadowColor: shadowColor,
+          iconTheme: iconTheme,
+          shape: selected ? selectedShape : shape,
         );
 
       case AppChipType.filter:
         return FilterChip(
-          label: Text(label),
+          label: Text(label, style: selected ? selectedLabelStyle : labelStyle),
           selected: selected,
           onSelected: enabled ? onSelected : null,
           avatar: avatar,
+          backgroundColor: backgroundColor,
+          selectedColor: selectedColor,
+          padding: padding,
+          labelPadding: labelPadding,
+          elevation: elevation,
+          shadowColor: shadowColor,
+          iconTheme: iconTheme,
+          shape: selected ? selectedShape : shape,
         );
 
       case AppChipType.choice:
         return ChoiceChip(
-          label: Text(label),
+          label: Text(label, style: selected ? selectedLabelStyle : labelStyle),
           selected: selected,
           onSelected: enabled ? onSelected : null,
           avatar: avatar,
+          backgroundColor: backgroundColor,
+          selectedColor: selectedColor,
+          padding: padding,
+          labelPadding: labelPadding,
+          elevation: elevation,
+          shadowColor: shadowColor,
+          iconTheme: iconTheme,
+          shape: selected ? selectedShape : shape,
         );
 
       case AppChipType.action:
         return ActionChip(
-          label: Text(label),
+          label: Text(label, style: labelStyle),
           onPressed: enabled && onSelected != null
               ? () => onSelected!(true)
               : null,
           avatar: avatar,
+          backgroundColor: backgroundColor,
+          padding: padding,
+          labelPadding: labelPadding,
+          elevation: elevation,
+          shadowColor: shadowColor,
+          iconTheme: iconTheme,
+          shape: shape,
         );
     }
   }

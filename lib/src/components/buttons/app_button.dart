@@ -10,6 +10,18 @@ class AppButton extends StatelessWidget {
   final IconData? icon;
   final bool isLoading;
   final bool fullWidth;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? borderRadius;
+  final EdgeInsets? padding;
+  final TextStyle? textStyle;
+  final double? elevation;
+  final Color? shadowColor;
+  final Color? borderColor;
+  final double? borderWidth;
+  final double? iconSize;
+  final Size? minimumSize;
+  final Size? maximumSize;
 
   const AppButton({
     super.key,
@@ -19,6 +31,18 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.isLoading = false,
     this.fullWidth = false,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.borderRadius,
+    this.padding,
+    this.textStyle,
+    this.elevation,
+    this.shadowColor,
+    this.borderColor,
+    this.borderWidth,
+    this.iconSize,
+    this.minimumSize,
+    this.maximumSize,
   });
 
   @override
@@ -32,13 +56,21 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.primary:
         button = FilledButton.icon(
           onPressed: isLoading ? null : onPressed,
-          icon: _buildIcon(colorScheme.onPrimary),
-          label: Text(label),
+          icon: _buildIcon(foregroundColor ?? colorScheme.onPrimary),
+          label: Text(label, style: textStyle),
           style: FilledButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            foregroundColor: colorScheme.onPrimary,
+            backgroundColor: backgroundColor ?? colorScheme.primary,
+            foregroundColor: foregroundColor ?? colorScheme.onPrimary,
+            padding: padding,
+            elevation: elevation,
+            shadowColor: shadowColor,
+            minimumSize: minimumSize,
+            maximumSize: maximumSize,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              side: borderColor != null
+                  ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                  : BorderSide.none,
             ),
           ),
         );
@@ -46,13 +78,22 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.secondary:
         button = FilledButton.icon(
           onPressed: isLoading ? null : onPressed,
-          icon: _buildIcon(colorScheme.onSecondaryContainer),
-          label: Text(label),
+          icon: _buildIcon(foregroundColor ?? colorScheme.onSecondaryContainer),
+          label: Text(label, style: textStyle),
           style: FilledButton.styleFrom(
-            backgroundColor: colorScheme.secondaryContainer,
-            foregroundColor: colorScheme.onSecondaryContainer,
+            backgroundColor: backgroundColor ?? colorScheme.secondaryContainer,
+            foregroundColor:
+                foregroundColor ?? colorScheme.onSecondaryContainer,
+            padding: padding,
+            elevation: elevation,
+            shadowColor: shadowColor,
+            minimumSize: minimumSize,
+            maximumSize: maximumSize,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              side: borderColor != null
+                  ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                  : BorderSide.none,
             ),
           ),
         );
@@ -60,12 +101,21 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.outline:
         button = OutlinedButton.icon(
           onPressed: isLoading ? null : onPressed,
-          icon: _buildIcon(colorScheme.primary),
-          label: Text(label),
+          icon: _buildIcon(foregroundColor ?? colorScheme.primary),
+          label: Text(label, style: textStyle),
           style: OutlinedButton.styleFrom(
-            side: BorderSide(color: colorScheme.outline),
+            foregroundColor: foregroundColor,
+            padding: padding,
+            elevation: elevation,
+            shadowColor: shadowColor,
+            minimumSize: minimumSize,
+            maximumSize: maximumSize,
+            side: BorderSide(
+              color: borderColor ?? backgroundColor ?? colorScheme.outline,
+              width: borderWidth ?? 1,
+            ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
             ),
           ),
         );
@@ -73,11 +123,20 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.ghost:
         button = TextButton.icon(
           onPressed: isLoading ? null : onPressed,
-          icon: _buildIcon(colorScheme.primary),
-          label: Text(label),
+          icon: _buildIcon(foregroundColor ?? colorScheme.primary),
+          label: Text(label, style: textStyle),
           style: TextButton.styleFrom(
+            foregroundColor: foregroundColor,
+            padding: padding,
+            elevation: elevation,
+            shadowColor: shadowColor,
+            minimumSize: minimumSize,
+            maximumSize: maximumSize,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              side: borderColor != null
+                  ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                  : BorderSide.none,
             ),
           ),
         );
@@ -85,13 +144,21 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.danger:
         button = FilledButton.icon(
           onPressed: isLoading ? null : onPressed,
-          icon: _buildIcon(colorScheme.onError),
-          label: Text(label),
+          icon: _buildIcon(foregroundColor ?? colorScheme.onError),
+          label: Text(label, style: textStyle),
           style: FilledButton.styleFrom(
-            backgroundColor: colorScheme.error,
-            foregroundColor: colorScheme.onError,
+            backgroundColor: backgroundColor ?? colorScheme.error,
+            foregroundColor: foregroundColor ?? colorScheme.onError,
+            padding: padding,
+            elevation: elevation,
+            shadowColor: shadowColor,
+            minimumSize: minimumSize,
+            maximumSize: maximumSize,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              side: borderColor != null
+                  ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                  : BorderSide.none,
             ),
           ),
         );
@@ -113,7 +180,7 @@ class AppButton extends StatelessWidget {
       );
     }
     if (icon != null) {
-      return Icon(icon);
+      return Icon(icon, size: iconSize);
     }
     return const SizedBox.shrink();
   }

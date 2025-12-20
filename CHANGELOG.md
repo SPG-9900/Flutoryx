@@ -1,5 +1,15 @@
 # Flutoryx UI Kit - CHANGELOG
 
+## [1.2.0] - 2025-12-20
+
+### Added
+- **Ultimate Customization Pass**: Every component now supports granular local overrides for colors, borders, radius, and text styles.
+- **Foundations**: Expanded design system with comprehensive 50-900 color palettes (Slate, Indigo, Teal, Violet, etc.).
+- **Modern Standards**: Migrated all color manipulations to the latest Flutter `withValues(alpha: ...)` API.
+- **AppDialog**: Added explicit dismissal control (`barrierDismissible`) and header refinements for professional use.
+- **Hyper-Customizable Inputs**: Exhaustive styling options for `AppCustomDropdown`, `AppSearchField`, and `AppTextFormField`.
+- **Showcase**: Significantly expanded the example application to demonstrate hyper-customization capabilities.
+
 ## [1.1.0] - 2025-12-19
 
 ### Added

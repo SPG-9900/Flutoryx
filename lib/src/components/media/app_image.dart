@@ -28,6 +28,13 @@ class AppImage extends StatelessWidget {
     this.loadingWidget,
     this.errorWidget,
     this.placeholder,
+    this.border,
+    this.boxShadow,
+    this.margin,
+    this.padding,
+    this.opacity,
+    this.color,
+    this.colorBlendMode,
   }) : source = AppImageSource.network,
        path = url;
 
@@ -42,6 +49,13 @@ class AppImage extends StatelessWidget {
     this.loadingWidget,
     this.errorWidget,
     this.placeholder,
+    this.border,
+    this.boxShadow,
+    this.margin,
+    this.padding,
+    this.opacity,
+    this.color,
+    this.colorBlendMode,
   }) : source = AppImageSource.asset,
        path = assetPath;
 
@@ -72,6 +86,27 @@ class AppImage extends StatelessWidget {
   /// Placeholder widget to show before image loads.
   final Widget? placeholder;
 
+  /// Optional border.
+  final BoxBorder? border;
+
+  /// Optional shadows.
+  final List<BoxShadow>? boxShadow;
+
+  /// Optional margin.
+  final EdgeInsetsGeometry? margin;
+
+  /// Optional padding.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional opacity.
+  final double? opacity;
+
+  /// Optional color filter.
+  final Color? color;
+
+  /// Optional color blend mode.
+  final BlendMode? colorBlendMode;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -85,6 +120,8 @@ class AppImage extends StatelessWidget {
           width: width,
           height: height,
           fit: fit,
+          color: color,
+          colorBlendMode: colorBlendMode,
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
             return loadingWidget ??
@@ -119,6 +156,8 @@ class AppImage extends StatelessWidget {
           width: width,
           height: height,
           fit: fit,
+          color: color,
+          colorBlendMode: colorBlendMode,
           errorBuilder: (context, error, stackTrace) {
             return errorWidget ??
                 Container(
@@ -146,9 +185,30 @@ class AppImage extends StatelessWidget {
         break;
     }
 
-    if (borderRadius != null) {
-      imageWidget = ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius!),
+    if (opacity != null) {
+      imageWidget = Opacity(opacity: opacity!, child: imageWidget);
+    }
+
+    if (borderRadius != null || border != null || boxShadow != null) {
+      imageWidget = Container(
+        width: width,
+        height: height,
+        margin: margin,
+        padding: padding,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius != null
+              ? BorderRadius.circular(borderRadius!)
+              : null,
+          border: border,
+          boxShadow: boxShadow,
+        ),
+        clipBehavior: borderRadius != null ? Clip.antiAlias : Clip.none,
+        child: imageWidget,
+      );
+    } else if (margin != null || padding != null) {
+      imageWidget = Container(
+        margin: margin,
+        padding: padding,
         child: imageWidget,
       );
     }

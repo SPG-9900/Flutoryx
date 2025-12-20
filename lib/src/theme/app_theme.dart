@@ -37,12 +37,18 @@ class AppTheme {
 
   static ThemeData dark(BuildContext context) {
     final colorScheme = const ColorScheme.dark(
-      primary: AppColors
-          .primary, // You might want different colors for dark mode usually
-      onPrimary: AppColors
-          .onPrimary, // But using same palette for now based on AppColors defs
-      primaryContainer: AppColors.primaryContainer,
-      onPrimaryContainer: AppColors.onPrimaryContainer,
+      primary: AppColors.primary300,
+      onPrimary: AppColors.primary900,
+      primaryContainer: AppColors.primary800,
+      onPrimaryContainer: AppColors.primary100,
+      secondary: AppColors.secondary300,
+      onSecondary: AppColors.secondary900,
+      secondaryContainer: AppColors.secondary800,
+      onSecondaryContainer: AppColors.secondary100,
+      tertiary: AppColors.tertiary300,
+      onTertiary: AppColors.tertiary900,
+      tertiaryContainer: AppColors.tertiary800,
+      onTertiaryContainer: AppColors.tertiary100,
       // Note: Real Material 3 dark theme usually swaps these colors.
       // For this sample, I'm mapping specific dark tokens if available or reusing.
       // Let's use the explicit dark colors defined in AppColors.

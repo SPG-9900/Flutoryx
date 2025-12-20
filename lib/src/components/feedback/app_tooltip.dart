@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../foundation/typography.dart';
+import '../../foundation/colors.dart';
 
 /// A Material Design tooltip component.
 ///
@@ -14,6 +15,16 @@ class AppTooltip extends StatelessWidget {
     this.verticalOffset,
     this.waitDuration,
     this.showDuration,
+    this.backgroundColor,
+    this.textColor,
+    this.borderRadius,
+    this.padding,
+    this.margin,
+    this.textStyle,
+    this.triggerMode,
+    this.enableFeedback,
+    this.borderColor,
+    this.borderWidth,
   });
 
   /// The text to display in the tooltip.
@@ -34,6 +45,36 @@ class AppTooltip extends StatelessWidget {
   /// How long to show the tooltip.
   final Duration? showDuration;
 
+  /// Optional background color.
+  final Color? backgroundColor;
+
+  /// Optional text color.
+  final Color? textColor;
+
+  /// Optional border radius.
+  final double? borderRadius;
+
+  /// Optional padding.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional margin.
+  final EdgeInsetsGeometry? margin;
+
+  /// Optional text style.
+  final TextStyle? textStyle;
+
+  /// The mode that triggers the tooltip.
+  final TooltipTriggerMode? triggerMode;
+
+  /// Whether feedback is enabled.
+  final bool? enableFeedback;
+
+  /// Optional border color.
+  final Color? borderColor;
+
+  /// Optional border width.
+  final double? borderWidth;
+
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -42,7 +83,26 @@ class AppTooltip extends StatelessWidget {
       verticalOffset: verticalOffset,
       waitDuration: waitDuration ?? const Duration(milliseconds: 500),
       showDuration: showDuration ?? const Duration(seconds: 2),
-      textStyle: AppTypography.bodySmall(context).copyWith(color: Colors.white),
+      triggerMode: triggerMode,
+      enableFeedback: enableFeedback,
+      margin: margin,
+      padding: padding,
+      decoration: ShapeDecoration(
+        color:
+            backgroundColor ??
+            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.9),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius ?? 4),
+          side: borderColor != null
+              ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+              : BorderSide.none,
+        ),
+      ),
+      textStyle:
+          textStyle ??
+          AppTypography.bodySmall(
+            context,
+          ).copyWith(color: textColor ?? AppColors.white),
       child: child,
     );
   }

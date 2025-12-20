@@ -4,19 +4,19 @@
 
 # Flutoryx UI Kit 🎨
 
-A production-ready, Material 3 compliant Flutter UI library with **25+ customizable components**, adaptive typography, and a robust design system. Built for scalability, performance, and developer productivity.
+A professional-grade, Material 3 compliant Flutter UI library with **25+ hyper-customizable components**. Built for developers who need maximum flexibility without sacrificing the speed of a design system.
 
 [![pub package](https://img.shields.io/pub/v/flutoryx.svg)](https://pub.dev/packages/flutoryx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Key Features
 
-- 🎨 **Material 3 Design** - Modern, adaptive components following the latest standards.
-- 🌗 **Dark Mode Support** - First-class support for light and dark themes.
-- 📱 **Responsive Typography** - Adaptive font scaling for Mobile, Tablet, and Desktop.
-- 🧩 **Custom Dropdown** - Powerful searchable, multi-select dropdown with avatar support.
-- 🎯 **FormField Integration** - Built-in validation for all input components.
-- 📦 **Zero Dependencies** - Pure Flutter implementation for maximum compatibility.
+- 🎨 **Ultimate Customization** - Granular control over colors, borders, radius, and text styles on *every* component.
+- 🌈 **Standardized Spectra** - Comprehensive 50-900 color palettes (Slate, Indigo, Teal, Violet, etc.).
+- 🌗 **Dark Mode Support** - First-class support with intelligent fallback logic.
+- 🧩 **Advanced Components** - Searchable dropdowns, premium navigation bars, and shimmer skeletons.
+- 🎯 **FormField Integration** - Robust validation and state handling built into all inputs.
+- ⚡ **Zero Dependencies** - Pure Flutter implementation for maximum performance.
 
 ---
 
@@ -28,7 +28,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.0.0
+  flutoryx: ^1.2.0
 ```
 
 ### Basic Usage
@@ -108,11 +108,11 @@ class MyApp extends StatelessWidget {
 
 ## 🛠 Foundation & Utilities
 
-- **AppColors**: Harmonious HSL-based color palettes.
-- **AppTypography**: Adaptive scales using the Mulish font family.
-- **AppSpacing & AppRadius**: Consistent spatial system for layout harmony.
-- **AppValidators**: Comprehensive form validation logic (email, phone, matching, etc).
-- **Extensions**: Helpful Dart/Flutter extensions for Color, String, and Context.
+- **AppColors**: 10+ professional spectra with full 50-900 shading ranges.
+- **AppTypography**: Adaptive scales using the Mulish font family with variant overrides.
+- **AppSpacing & AppRadius**: Comprehensive token system for consistent layout harmony.
+- **AppValidators**: Production-ready form validation logic for common use cases.
+- **Extensions**: Helpful utility extensions for Color manipulation (modern API), String, and BuildContext.
 
 ## 📄 License
 

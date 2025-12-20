@@ -26,6 +26,12 @@ class AppCheckbox extends StatelessWidget {
     this.error,
     this.enabled = true,
     this.activeColor,
+    this.checkColor,
+    this.borderRadius,
+    this.labelStyle,
+    this.borderColor,
+    this.borderWidth,
+    this.fillColor,
   });
 
   /// Whether this checkbox is checked.
@@ -57,6 +63,24 @@ class AppCheckbox extends StatelessWidget {
   /// The color to use when this checkbox is checked.
   final Color? activeColor;
 
+  /// The color to use for the check icon.
+  final Color? checkColor;
+
+  /// Optional border radius for the checkbox.
+  final double? borderRadius;
+
+  /// Optional text style for the label.
+  final TextStyle? labelStyle;
+
+  /// Optional border color.
+  final Color? borderColor;
+
+  /// Optional border width.
+  final double? borderWidth;
+
+  /// Optional fill color (overrides active/inactive backgrounds).
+  final WidgetStateProperty<Color?>? fillColor;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -67,6 +91,16 @@ class AppCheckbox extends StatelessWidget {
       onChanged: effectiveOnChanged,
       tristate: tristate,
       activeColor: activeColor,
+      checkColor: checkColor,
+      fillColor: fillColor,
+      side: borderColor != null
+          ? BorderSide(color: borderColor!, width: borderWidth ?? 2)
+          : null,
+      shape: borderRadius != null
+          ? RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius!),
+            )
+          : null,
     );
 
     Widget result;
@@ -74,7 +108,7 @@ class AppCheckbox extends StatelessWidget {
     if (label != null) {
       final labelWidget = Text(
         label!,
-        style: AppTypography.bodyMedium(context).copyWith(
+        style: (labelStyle ?? AppTypography.bodyMedium(context)).copyWith(
           color: enabled
               ? theme.colorScheme.onSurface
               : theme.colorScheme.onSurface.withValues(alpha: 0.38),

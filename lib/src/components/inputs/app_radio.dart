@@ -12,7 +12,21 @@ class AppRadio<T> extends StatelessWidget {
     required this.onChanged,
     this.label,
     this.enabled = true,
+    this.activeColor,
+    this.labelStyle,
   });
+
+  /// Creates a radio button specifically for use within an [AppRadioGroup]
+  /// or a [RadioGroup].
+  const AppRadio.grouped({
+    super.key,
+    required this.value,
+    this.label,
+    this.enabled = true,
+    this.activeColor,
+    this.labelStyle,
+  }) : groupValue = null,
+       onChanged = null;
 
   /// The value represented by this radio button.
   final T value;
@@ -29,16 +43,18 @@ class AppRadio<T> extends StatelessWidget {
   /// Whether the radio button is enabled.
   final bool enabled;
 
+  /// The color to use when this radio button is selected.
+  final Color? activeColor;
+
+  /// Optional text style for the label.
+  final TextStyle? labelStyle;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final effectiveOnChanged = enabled ? onChanged : null;
 
-    final radio = Radio<T>(
-      value: value,
-      groupValue: groupValue,
-      onChanged: effectiveOnChanged,
-    );
+    final radio = Radio<T>(value: value, activeColor: activeColor);
 
     if (label == null) {
       return radio;
@@ -58,7 +74,7 @@ class AppRadio<T> extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               label!,
-              style: AppTypography.bodyMedium(context).copyWith(
+              style: (labelStyle ?? AppTypography.bodyMedium(context)).copyWith(
                 color: enabled
                     ? theme.colorScheme.onSurface
                     : theme.colorScheme.onSurface.withValues(alpha: 0.38),
@@ -82,6 +98,8 @@ class AppRadioGroup<T> extends StatelessWidget {
     this.direction = Axis.vertical,
     this.spacing = AppSpacing.s,
     this.enabled = true,
+    this.activeColor,
+    this.labelStyle,
   });
 
   /// The currently selected value.
@@ -92,7 +110,7 @@ class AppRadioGroup<T> extends StatelessWidget {
 
   /// The list of options to display.
   /// Can be a list of values (will use toString() for labels)
-  /// or a Map<T, String> for custom labels.
+  /// or a `Map<T, String>` for custom labels.
   final dynamic options;
 
   /// The direction to layout the radio buttons.
@@ -104,6 +122,12 @@ class AppRadioGroup<T> extends StatelessWidget {
   /// Whether the radio group is enabled.
   final bool enabled;
 
+  /// The color to use for the selected radio button.
+  final Color? activeColor;
+
+  /// Optional text style for the labels.
+  final TextStyle? labelStyle;
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> radioButtons = [];
@@ -112,12 +136,12 @@ class AppRadioGroup<T> extends StatelessWidget {
       final optionsMap = options as Map<T, String>;
       for (final entry in optionsMap.entries) {
         radioButtons.add(
-          AppRadio<T>(
+          AppRadio<T>.grouped(
             value: entry.key,
-            groupValue: value,
-            onChanged: onChanged,
             label: entry.value,
             enabled: enabled,
+            activeColor: activeColor,
+            labelStyle: labelStyle,
           ),
         );
       }
@@ -125,19 +149,20 @@ class AppRadioGroup<T> extends StatelessWidget {
       final optionsList = options as List<T>;
       for (final option in optionsList) {
         radioButtons.add(
-          AppRadio<T>(
+          AppRadio<T>.grouped(
             value: option,
-            groupValue: value,
-            onChanged: onChanged,
             label: option.toString(),
             enabled: enabled,
+            activeColor: activeColor,
+            labelStyle: labelStyle,
           ),
         );
       }
     }
 
+    Widget content;
     if (direction == Axis.vertical) {
-      return Column(
+      content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: radioButtons
@@ -150,11 +175,17 @@ class AppRadioGroup<T> extends StatelessWidget {
             .toList(),
       );
     } else {
-      return Wrap(
+      content = Wrap(
         spacing: spacing,
         runSpacing: spacing,
         children: radioButtons,
       );
     }
+
+    return RadioGroup<T>(
+      groupValue: value,
+      onChanged: enabled && onChanged != null ? onChanged! : (_) {},
+      child: content,
+    );
   }
 }

@@ -14,6 +14,16 @@ class AppTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final ValueChanged<String>? onChanged;
   final int? maxLines;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final BorderRadius? borderRadius;
+  final TextStyle? style;
+  final TextStyle? labelStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? floatingLabelStyle;
+  final TextStyle? errorStyle;
+  final EdgeInsetsGeometry? contentPadding;
+  final Color? fillColor;
 
   const AppTextFormField({
     super.key,
@@ -27,6 +37,16 @@ class AppTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.onChanged,
     this.maxLines = 1,
+    this.borderColor,
+    this.focusedBorderColor,
+    this.borderRadius,
+    this.style,
+    this.labelStyle,
+    this.hintStyle,
+    this.floatingLabelStyle,
+    this.errorStyle,
+    this.contentPadding,
+    this.fillColor,
   });
 
   @override
@@ -71,12 +91,14 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       finalSuffixIcon = IconButton(
         icon: Icon(
           _obscureText
-              ? Icons.visibility_outlined
-              : Icons.visibility_off_outlined,
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
         ),
         onPressed: _toggleVisibility,
       );
     }
+
+    final effectiveBorderRadius = widget.borderRadius ?? AppRadius.roundedM;
 
     return TextFormField(
       controller: widget.controller,
@@ -85,34 +107,46 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         hintText: widget.hintText,
         prefixIcon: widget.prefixIcon,
         suffixIcon: finalSuffixIcon,
-        border: const OutlineInputBorder(borderRadius: AppRadius.roundedM),
+        border: OutlineInputBorder(borderRadius: effectiveBorderRadius),
         enabledBorder: OutlineInputBorder(
-          borderRadius: AppRadius.roundedM,
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+          borderRadius: effectiveBorderRadius,
+          borderSide: BorderSide(
+            color: widget.borderColor ?? Theme.of(context).colorScheme.outline,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: AppRadius.roundedM,
+          borderRadius: effectiveBorderRadius,
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
+            color:
+                widget.focusedBorderColor ??
+                Theme.of(context).colorScheme.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: AppRadius.roundedM,
+          borderRadius: effectiveBorderRadius,
           borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: AppRadius.roundedM,
+          borderRadius: effectiveBorderRadius,
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.error,
             width: 2,
           ),
         ),
         filled: true,
-        fillColor: Theme.of(
-          context,
-        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        fillColor:
+            widget.fillColor ??
+            Theme.of(
+              context,
+            ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        labelStyle: widget.labelStyle,
+        hintStyle: widget.hintStyle,
+        floatingLabelStyle: widget.floatingLabelStyle,
+        errorStyle: widget.errorStyle,
+        contentPadding: widget.contentPadding,
       ),
+      style: widget.style,
       keyboardType: widget.keyboardType,
       obscureText: _obscureText,
       validator: widget.validator,

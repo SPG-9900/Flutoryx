@@ -42,25 +42,29 @@ class AppSnackBar {
     VoidCallback? onAction,
     SnackBarPosition position = SnackBarPosition.bottom,
     bool showCloseButton = false,
+    Color? backgroundColor,
+    Color? textColor,
+    Color? iconColor,
+    double? borderRadius,
   }) {
     final config = _getConfig(type);
 
     final snackBar = SnackBar(
       content: Row(
         children: [
-          Icon(config.icon, color: Colors.white, size: 20),
+          Icon(config.icon, color: iconColor ?? AppColors.white, size: 20),
           const SizedBox(width: AppSpacing.m),
           Expanded(
             child: Text(
               message,
               style: AppTypography.bodyMedium(
                 context,
-              ).copyWith(color: Colors.white),
+              ).copyWith(color: textColor ?? AppColors.white),
             ),
           ),
         ],
       ),
-      backgroundColor: config.backgroundColor,
+      backgroundColor: backgroundColor ?? config.backgroundColor,
       duration: duration,
       behavior: SnackBarBehavior.floating,
       margin: position == SnackBarPosition.top
@@ -71,17 +75,17 @@ class AppSnackBar {
             )
           : EdgeInsets.all(AppSpacing.m),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.m),
+        borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.m),
       ),
       action: actionLabel != null
           ? SnackBarAction(
               label: actionLabel,
-              textColor: Colors.white,
+              textColor: AppColors.white,
               onPressed: onAction ?? () {},
             )
           : null,
       showCloseIcon: showCloseButton,
-      closeIconColor: Colors.white,
+      closeIconColor: AppColors.white,
     );
 
     ScaffoldMessenger.of(context)

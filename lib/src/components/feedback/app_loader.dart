@@ -31,12 +31,25 @@ class AppLoader extends StatelessWidget {
     this.size = AppLoaderSize.medium,
     this.color,
     this.strokeWidth,
+    this.backgroundColor,
+    this.value,
+    this.strokeCap,
+    this.borderRadius,
+    this.width,
   }) : type = AppLoaderType.circular;
 
   /// Creates a linear loader.
-  const AppLoader.linear({super.key, this.color, this.strokeWidth})
-    : type = AppLoaderType.linear,
-      size = AppLoaderSize.medium;
+  const AppLoader.linear({
+    super.key,
+    this.color,
+    this.strokeWidth,
+    this.backgroundColor,
+    this.value,
+    this.strokeCap,
+    this.borderRadius,
+    this.width,
+  }) : type = AppLoaderType.linear,
+       size = AppLoaderSize.medium;
 
   /// The type of loader.
   final AppLoaderType type;
@@ -49,6 +62,21 @@ class AppLoader extends StatelessWidget {
 
   /// The stroke width of the loader.
   final double? strokeWidth;
+
+  /// Optional background color.
+  final Color? backgroundColor;
+
+  /// Optional progress value (0.0 to 1.0).
+  final double? value;
+
+  /// Optional stroke cap.
+  final StrokeCap? strokeCap;
+
+  /// Optional border radius (linear only).
+  final double? borderRadius;
+
+  /// Optional width (linear only).
+  final double? width;
 
   double get _sizeValue {
     switch (size) {
@@ -64,7 +92,22 @@ class AppLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (type == AppLoaderType.linear) {
-      return LinearProgressIndicator(color: color);
+      final loader = LinearProgressIndicator(
+        color: color,
+        backgroundColor: backgroundColor,
+        value: value,
+        minHeight: strokeWidth,
+        borderRadius: borderRadius != null
+            ? BorderRadius.circular(borderRadius!)
+            : (strokeCap == StrokeCap.round
+                  ? BorderRadius.circular(strokeWidth ?? 4)
+                  : BorderRadius.zero),
+      );
+
+      if (width != null) {
+        return SizedBox(width: width, child: loader);
+      }
+      return loader;
     }
 
     return SizedBox(
@@ -72,7 +115,10 @@ class AppLoader extends StatelessWidget {
       height: _sizeValue,
       child: CircularProgressIndicator(
         color: color,
+        backgroundColor: backgroundColor,
+        value: value,
         strokeWidth: strokeWidth ?? (_sizeValue / 8),
+        strokeCap: strokeCap,
       ),
     );
   }

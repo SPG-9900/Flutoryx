@@ -31,13 +31,29 @@ class AppCustomDropdown<T> extends FormField<dynamic> {
     this.mode = AppDropdownMode.single,
     this.maxHeight = 300,
     this.searchable = false,
-    this.enabled = true,
+    super.enabled = true,
+    this.borderRadius,
+    this.borderColor,
+    this.borderWidth,
+    this.focusedBorderColor,
+    this.backgroundColor,
+    this.textStyle,
+    this.hintStyle,
+    this.iconColor,
+    this.padding,
+    this.margin,
+    this.overlayColor,
+    this.overlayBorderRadius,
+    this.overlayBorderColor,
+    this.overlayElevation,
+    this.itemTextStyle,
+    this.selectedItemTextStyle,
+    this.itemPadding,
     super.validator,
     super.onSaved,
     super.autovalidateMode,
   }) : super(
          initialValue: mode == AppDropdownMode.single ? value : values,
-         enabled: enabled,
          builder: (FormFieldState<dynamic> state) {
            return _AppCustomDropdownInternal<T>(
              items: items,
@@ -59,8 +75,25 @@ class AppCustomDropdown<T> extends FormField<dynamic> {
              mode: mode,
              maxHeight: maxHeight,
              searchable: searchable,
-             enabled: enabled,
+             enabled: state.widget.enabled,
              errorText: state.errorText,
+             borderRadius: borderRadius,
+             borderColor: borderColor,
+             borderWidth: borderWidth,
+             focusedBorderColor: focusedBorderColor,
+             backgroundColor: backgroundColor,
+             textStyle: textStyle,
+             hintStyle: hintStyle,
+             iconColor: iconColor,
+             padding: padding,
+             margin: margin,
+             overlayColor: overlayColor,
+             overlayBorderRadius: overlayBorderRadius,
+             overlayBorderColor: overlayBorderColor,
+             overlayElevation: overlayElevation,
+             itemTextStyle: itemTextStyle,
+             selectedItemTextStyle: selectedItemTextStyle,
+             itemPadding: itemPadding,
            );
          },
        );
@@ -86,9 +119,56 @@ class AppCustomDropdown<T> extends FormField<dynamic> {
   /// Whether the dropdown is searchable.
   final bool searchable;
 
-  /// Whether the dropdown is enabled.
-  @override
-  final bool enabled;
+  /// Optional background color.
+  final Color? backgroundColor;
+
+  /// Optional border radius.
+  final double? borderRadius;
+
+  /// Optional border color.
+  final Color? borderColor;
+
+  /// Optional border width.
+  final double? borderWidth;
+
+  /// Optional focused border color.
+  final Color? focusedBorderColor;
+
+  /// Optional text style.
+  final TextStyle? textStyle;
+
+  /// Optional hint style.
+  final TextStyle? hintStyle;
+
+  /// Optional icon color.
+  final Color? iconColor;
+
+  /// Optional padding.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional margin.
+  final EdgeInsetsGeometry? margin;
+
+  /// Optional overlay background color.
+  final Color? overlayColor;
+
+  /// Optional overlay border radius.
+  final double? overlayBorderRadius;
+
+  /// Optional overlay border color.
+  final Color? overlayBorderColor;
+
+  /// Optional overlay elevation.
+  final double? overlayElevation;
+
+  /// Optional text style for items.
+  final TextStyle? itemTextStyle;
+
+  /// Optional text style for selected items.
+  final TextStyle? selectedItemTextStyle;
+
+  /// Optional padding for items.
+  final EdgeInsetsGeometry? itemPadding;
 
   @override
   FormFieldState<dynamic> createState() => FormFieldState<dynamic>();
@@ -109,6 +189,23 @@ class _AppCustomDropdownInternal<T> extends StatefulWidget {
     required this.searchable,
     required this.enabled,
     this.errorText,
+    this.backgroundColor,
+    this.borderRadius,
+    this.borderColor,
+    this.borderWidth,
+    this.focusedBorderColor,
+    this.textStyle,
+    this.hintStyle,
+    this.iconColor,
+    this.padding,
+    this.margin,
+    this.overlayColor,
+    this.overlayBorderRadius,
+    this.overlayBorderColor,
+    this.overlayElevation,
+    this.itemTextStyle,
+    this.selectedItemTextStyle,
+    this.itemPadding,
   });
 
   final List<AppDropdownItem<T>> items;
@@ -124,6 +221,23 @@ class _AppCustomDropdownInternal<T> extends StatefulWidget {
   final bool searchable;
   final bool enabled;
   final String? errorText;
+  final Color? backgroundColor;
+  final double? borderRadius;
+  final Color? borderColor;
+  final double? borderWidth;
+  final Color? focusedBorderColor;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
+  final Color? iconColor;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final Color? overlayColor;
+  final double? overlayBorderRadius;
+  final Color? overlayBorderColor;
+  final double? overlayElevation;
+  final TextStyle? itemTextStyle;
+  final TextStyle? selectedItemTextStyle;
+  final EdgeInsetsGeometry? itemPadding;
 
   @override
   State<_AppCustomDropdownInternal<T>> createState() =>
@@ -202,6 +316,13 @@ class _AppCustomDropdownInternalState<T>
         searchable: widget.searchable,
         animation: _expandAnimation,
         onTapOutside: _hideOverlay,
+        overlayColor: widget.overlayColor,
+        overlayBorderRadius: widget.overlayBorderRadius,
+        overlayBorderColor: widget.overlayBorderColor,
+        overlayElevation: widget.overlayElevation,
+        itemTextStyle: widget.itemTextStyle,
+        selectedItemTextStyle: widget.selectedItemTextStyle,
+        itemPadding: widget.itemPadding,
         onItemTap: (value) {
           if (widget.mode == AppDropdownMode.single) {
             _selectionNotifier.value = value;
@@ -275,76 +396,90 @@ class _AppCustomDropdownInternalState<T>
         ? widget.value != null
         : (widget.values?.isNotEmpty ?? false);
 
-    final borderColor = widget.errorText != null
+    final effectiveBorderColor = widget.errorText != null
         ? theme.colorScheme.error
-        : (_isOpen ? theme.colorScheme.primary : theme.colorScheme.outline);
+        : (_isOpen
+              ? (widget.focusedBorderColor ?? theme.colorScheme.primary)
+              : (widget.borderColor ?? theme.colorScheme.outline));
 
-    return CompositedTransformTarget(
-      link: _layerLink,
-      child: Opacity(
-        opacity: widget.enabled ? 1.0 : 0.5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (widget.labelText != null) ...[
-              Text(
-                widget.labelText!,
-                style: AppTypography.labelMedium(context),
-              ),
-              const SizedBox(height: AppSpacing.xs),
-            ],
-            InkWell(
-              onTap: _toggleDropdown,
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
+    final effectiveBorderRadius = widget.borderRadius != null
+        ? BorderRadius.circular(widget.borderRadius!)
+        : BorderRadius.circular(8);
+
+    Widget result = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (widget.labelText != null) ...[
+          Text(widget.labelText!, style: AppTypography.labelMedium(context)),
+          const SizedBox(height: AppSpacing.xs),
+        ],
+        InkWell(
+          onTap: _toggleDropdown,
+          borderRadius: effectiveBorderRadius,
+          child: Container(
+            padding:
+                widget.padding ??
+                const EdgeInsets.symmetric(
                   horizontal: AppSpacing.m,
                   vertical: AppSpacing.m,
                 ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: borderColor,
-                    width: _isOpen || widget.errorText != null ? 2 : 1,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    if (widget.prefixIcon != null) ...[
-                      widget.prefixIcon!,
-                      const SizedBox(width: AppSpacing.s),
-                    ],
-                    Expanded(
-                      child: Text(
-                        _getDisplayText(),
-                        style: AppTypography.bodyMedium(context).copyWith(
-                          color: hasValue
-                              ? theme.colorScheme.onSurface
-                              : theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      _isOpen ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ],
-                ),
+            decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              border: Border.all(
+                color: effectiveBorderColor,
+                width: _isOpen || widget.errorText != null
+                    ? (widget.borderWidth ?? 1) * 2
+                    : (widget.borderWidth ?? 1),
               ),
+              borderRadius: effectiveBorderRadius,
             ),
-            if (widget.errorText != null) ...[
-              const SizedBox(height: 4),
-              Text(
-                widget.errorText!,
-                style: AppTypography.bodySmall(
-                  context,
-                ).copyWith(color: theme.colorScheme.error),
-              ),
-            ],
-          ],
+            child: Row(
+              children: [
+                if (widget.prefixIcon != null) ...[
+                  widget.prefixIcon!,
+                  const SizedBox(width: AppSpacing.s),
+                ],
+                Expanded(
+                  child: Text(
+                    _getDisplayText(),
+                    style:
+                        (widget.textStyle ?? AppTypography.bodyMedium(context))
+                            .copyWith(
+                              color: hasValue
+                                  ? theme.colorScheme.onSurface
+                                  : (widget.hintStyle?.color ??
+                                        theme.colorScheme.onSurfaceVariant),
+                            ),
+                  ),
+                ),
+                Icon(
+                  _isOpen ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                  color: widget.iconColor ?? theme.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+        if (widget.errorText != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            widget.errorText!,
+            style: AppTypography.bodySmall(
+              context,
+            ).copyWith(color: theme.colorScheme.error),
+          ),
+        ],
+      ],
+    );
+
+    if (widget.margin != null) {
+      result = Padding(padding: widget.margin!, child: result);
+    }
+
+    return CompositedTransformTarget(
+      link: _layerLink,
+      child: Opacity(opacity: widget.enabled ? 1.0 : 0.5, child: result),
     );
   }
 }
@@ -361,6 +496,13 @@ class _DropdownOverlayContainer<T> extends StatefulWidget {
     required this.animation,
     required this.onTapOutside,
     required this.onItemTap,
+    this.overlayColor,
+    this.overlayBorderRadius,
+    this.overlayBorderColor,
+    this.overlayElevation,
+    this.itemTextStyle,
+    this.selectedItemTextStyle,
+    this.itemPadding,
   });
 
   final LayerLink layerLink;
@@ -373,6 +515,13 @@ class _DropdownOverlayContainer<T> extends StatefulWidget {
   final Animation<double> animation;
   final VoidCallback onTapOutside;
   final ValueChanged<T> onItemTap;
+  final Color? overlayColor;
+  final double? overlayBorderRadius;
+  final Color? overlayBorderColor;
+  final double? overlayElevation;
+  final TextStyle? itemTextStyle;
+  final TextStyle? selectedItemTextStyle;
+  final EdgeInsetsGeometry? itemPadding;
 
   @override
   State<_DropdownOverlayContainer<T>> createState() =>
@@ -414,16 +563,24 @@ class _DropdownOverlayContainerState<T>
                 scale: widget.animation,
                 alignment: Alignment.topCenter,
                 child: Material(
-                  elevation: 8,
-                  borderRadius: BorderRadius.circular(8),
+                  elevation: widget.overlayElevation ?? 8,
+                  borderRadius: BorderRadius.circular(
+                    widget.overlayBorderRadius ?? 8,
+                  ),
                   child: Container(
                     width: widget.size.width,
                     constraints: BoxConstraints(maxHeight: widget.maxHeight),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(8),
+                      color:
+                          widget.overlayColor ??
+                          Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(
+                        widget.overlayBorderRadius ?? 8,
+                      ),
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.outline,
+                        color:
+                            widget.overlayBorderColor ??
+                            Theme.of(context).colorScheme.outline,
                       ),
                     ),
                     child: Column(
@@ -482,6 +639,10 @@ class _DropdownOverlayContainerState<T>
                                     isSelected: isSelected,
                                     mode: widget.mode,
                                     onTap: () => widget.onItemTap(item.value),
+                                    textStyle: widget.itemTextStyle,
+                                    selectedTextStyle:
+                                        widget.selectedItemTextStyle,
+                                    padding: widget.itemPadding,
                                   );
                                 },
                               );
@@ -526,12 +687,18 @@ class _DropdownListItem<T> extends StatelessWidget {
     required this.isSelected,
     required this.mode,
     required this.onTap,
+    this.textStyle,
+    this.selectedTextStyle,
+    this.padding,
   });
 
   final AppDropdownItem<T> item;
   final bool isSelected;
   final AppDropdownMode mode;
   final VoidCallback onTap;
+  final TextStyle? textStyle;
+  final TextStyle? selectedTextStyle;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -555,10 +722,12 @@ class _DropdownListItem<T> extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.m,
-          vertical: AppSpacing.s,
-        ),
+        padding:
+            padding ??
+            const EdgeInsets.symmetric(
+              horizontal: AppSpacing.m,
+              vertical: AppSpacing.s,
+            ),
         color: isSelected
             ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
             : null,
@@ -583,14 +752,18 @@ class _DropdownListItem<T> extends StatelessWidget {
                 children: [
                   Text(
                     item.label,
-                    style: AppTypography.bodyMedium(context).copyWith(
-                      color: isSelected
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.onSurface,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                    ),
+                    style:
+                        (isSelected
+                            ? (selectedTextStyle ?? textStyle)
+                            : textStyle) ??
+                        AppTypography.bodyMedium(context).copyWith(
+                          color: isSelected
+                              ? theme.colorScheme.primary
+                              : theme.colorScheme.onSurface,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                        ),
                   ),
                   if (item.subtitle != null) ...[
                     const SizedBox(height: 2),

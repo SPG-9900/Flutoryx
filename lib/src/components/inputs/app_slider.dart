@@ -15,6 +15,15 @@ class AppSlider extends StatelessWidget {
     this.label,
     this.labelText,
     this.enabled = true,
+    this.activeColor,
+    this.inactiveColor,
+    this.thumbColor,
+    this.overlayColor,
+    this.valueIndicatorColor,
+    this.secondaryTrackValue,
+    this.secondaryActiveColor,
+    this.labelStyle,
+    this.valueStyle,
   });
 
   /// The current value of the slider.
@@ -41,6 +50,33 @@ class AppSlider extends StatelessWidget {
   /// Whether the slider is enabled.
   final bool enabled;
 
+  /// Optional active track color.
+  final Color? activeColor;
+
+  /// Optional inactive track color.
+  final Color? inactiveColor;
+
+  /// Optional thumb color.
+  final Color? thumbColor;
+
+  /// Optional overlay color.
+  final Color? overlayColor;
+
+  /// Optional value indicator color.
+  final Color? valueIndicatorColor;
+
+  /// Optional secondary track value.
+  final double? secondaryTrackValue;
+
+  /// Optional secondary active color.
+  final Color? secondaryActiveColor;
+
+  /// Optional label text style.
+  final TextStyle? labelStyle;
+
+  /// Optional value text style.
+  final TextStyle? valueStyle;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -54,13 +90,18 @@ class AppSlider extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(labelText!, style: AppTypography.bodyMedium(context)),
+              Text(
+                labelText!,
+                style: labelStyle ?? AppTypography.bodyMedium(context),
+              ),
               Text(
                 value.toStringAsFixed(divisions != null ? 0 : 1),
-                style: AppTypography.bodyMedium(context).copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                ),
+                style:
+                    valueStyle ??
+                    AppTypography.bodyMedium(context).copyWith(
+                      color: activeColor ?? theme.colorScheme.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ],
           ),
@@ -73,6 +114,12 @@ class AppSlider extends StatelessWidget {
           max: max,
           divisions: divisions,
           label: label ?? value.toStringAsFixed(divisions != null ? 0 : 1),
+          activeColor: activeColor,
+          inactiveColor: inactiveColor,
+          thumbColor: thumbColor,
+          overlayColor: WidgetStateProperty.all(overlayColor),
+          secondaryTrackValue: secondaryTrackValue,
+          secondaryActiveColor: secondaryActiveColor,
         ),
       ],
     );
@@ -91,6 +138,12 @@ class AppRangeSlider extends StatelessWidget {
     this.divisions,
     this.labelText,
     this.enabled = true,
+    this.activeColor,
+    this.inactiveColor,
+    this.thumbColor,
+    this.overlayColor,
+    this.labelStyle,
+    this.valueStyle,
   });
 
   /// The current range values.
@@ -114,6 +167,24 @@ class AppRangeSlider extends StatelessWidget {
   /// Whether the slider is enabled.
   final bool enabled;
 
+  /// Optional active track color.
+  final Color? activeColor;
+
+  /// Optional inactive track color.
+  final Color? inactiveColor;
+
+  /// Optional thumb color.
+  final Color? thumbColor;
+
+  /// Optional overlay color.
+  final Color? overlayColor;
+
+  /// Optional text style for label.
+  final TextStyle? labelStyle;
+
+  /// Optional text style for value.
+  final TextStyle? valueStyle;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -127,13 +198,18 @@ class AppRangeSlider extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(labelText!, style: AppTypography.bodyMedium(context)),
+              Text(
+                labelText!,
+                style: labelStyle ?? AppTypography.bodyMedium(context),
+              ),
               Text(
                 '${values.start.toStringAsFixed(divisions != null ? 0 : 1)} - ${values.end.toStringAsFixed(divisions != null ? 0 : 1)}',
-                style: AppTypography.bodyMedium(context).copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                ),
+                style:
+                    valueStyle ??
+                    AppTypography.bodyMedium(context).copyWith(
+                      color: activeColor ?? theme.colorScheme.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ],
           ),
@@ -149,6 +225,9 @@ class AppRangeSlider extends StatelessWidget {
             values.start.toStringAsFixed(divisions != null ? 0 : 1),
             values.end.toStringAsFixed(divisions != null ? 0 : 1),
           ),
+          activeColor: activeColor,
+          inactiveColor: inactiveColor,
+          overlayColor: WidgetStateProperty.all(overlayColor),
         ),
       ],
     );

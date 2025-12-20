@@ -24,6 +24,11 @@ class AppSwitch extends StatelessWidget {
     this.labelPosition = SwitchLabelPosition.right,
     this.enabled = true,
     this.activeColor,
+    this.activeThumbColor,
+    this.inactiveTrackColor,
+    this.inactiveThumbColor,
+    this.labelStyle,
+    this.thumbIcon,
   });
 
   /// Whether this switch is on or off.
@@ -47,6 +52,21 @@ class AppSwitch extends StatelessWidget {
   /// The color to use when this switch is on.
   final Color? activeColor;
 
+  /// The color to use for the thumb when this switch is on.
+  final Color? activeThumbColor;
+
+  /// The color to use for the track when this switch is off.
+  final Color? inactiveTrackColor;
+
+  /// The color to use for the thumb when this switch is off.
+  final Color? inactiveThumbColor;
+
+  /// Optional text style for the label.
+  final TextStyle? labelStyle;
+
+  /// Optional thumb icon (dynamic based on state).
+  final WidgetStateProperty<Icon?>? thumbIcon;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -55,7 +75,19 @@ class AppSwitch extends StatelessWidget {
     final switchWidget = Switch(
       value: value,
       onChanged: effectiveOnChanged,
-      activeTrackColor: activeColor,
+      thumbIcon: thumbIcon,
+      thumbColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return activeThumbColor ?? theme.colorScheme.onPrimary;
+        }
+        return inactiveThumbColor ?? theme.colorScheme.outline;
+      }),
+      trackColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return activeColor ?? theme.colorScheme.primary;
+        }
+        return inactiveTrackColor ?? theme.colorScheme.surfaceContainerHighest;
+      }),
     );
 
     if (label == null) {
@@ -64,7 +96,7 @@ class AppSwitch extends StatelessWidget {
 
     final labelWidget = Text(
       label!,
-      style: AppTypography.bodyMedium(context).copyWith(
+      style: (labelStyle ?? AppTypography.bodyMedium(context)).copyWith(
         color: enabled
             ? theme.colorScheme.onSurface
             : theme.colorScheme.onSurface.withValues(alpha: 0.38),

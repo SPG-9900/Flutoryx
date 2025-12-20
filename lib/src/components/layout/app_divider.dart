@@ -11,6 +11,8 @@ class AppDivider extends StatelessWidget {
     this.color,
     this.indent,
     this.endIndent,
+    this.padding,
+    this.margin,
   }) : orientation = Axis.horizontal,
        text = null,
        textStyle = null,
@@ -22,6 +24,8 @@ class AppDivider extends StatelessWidget {
     this.thickness,
     this.color,
     this.height,
+    this.padding,
+    this.margin,
   }) : orientation = Axis.vertical,
        text = null,
        textStyle = null,
@@ -35,6 +39,8 @@ class AppDivider extends StatelessWidget {
     this.textStyle,
     this.thickness,
     this.color,
+    this.padding,
+    this.margin,
   }) : orientation = Axis.horizontal,
        indent = null,
        endIndent = null,
@@ -64,30 +70,44 @@ class AppDivider extends StatelessWidget {
   /// The style to use for the text.
   final TextStyle? textStyle;
 
+  /// Optional padding.
+  final EdgeInsetsGeometry? padding;
+
+  /// Optional margin.
+  final EdgeInsetsGeometry? margin;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final dividerColor = color ?? theme.dividerColor;
     final dividerThickness = thickness ?? 1.0;
 
-    if (text != null) {
-      return _buildDividerWithText(context, dividerColor, dividerThickness);
-    }
+    Widget result;
 
-    if (orientation == Axis.vertical) {
-      return VerticalDivider(
+    if (text != null) {
+      result = _buildDividerWithText(context, dividerColor, dividerThickness);
+    } else if (orientation == Axis.vertical) {
+      result = VerticalDivider(
         thickness: dividerThickness,
         color: dividerColor,
         width: height,
+        indent: indent,
+        endIndent: endIndent,
+      );
+    } else {
+      result = Divider(
+        thickness: dividerThickness,
+        color: dividerColor,
+        indent: indent,
+        endIndent: endIndent,
       );
     }
 
-    return Divider(
-      thickness: dividerThickness,
-      color: dividerColor,
-      indent: indent,
-      endIndent: endIndent,
-    );
+    if (padding != null || margin != null) {
+      result = Container(padding: padding, margin: margin, child: result);
+    }
+
+    return result;
   }
 
   Widget _buildDividerWithText(

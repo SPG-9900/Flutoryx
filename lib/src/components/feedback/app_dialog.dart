@@ -18,6 +18,12 @@ class AppDialog extends StatelessWidget {
     this.icon,
     this.contentPadding,
     this.showCloseButton = false,
+    this.backgroundColor,
+    this.borderRadius,
+    this.titleStyle,
+    this.contentStyle,
+    this.elevation,
+    this.shadowColor,
   });
 
   /// Optional title of the dialog.
@@ -38,6 +44,24 @@ class AppDialog extends StatelessWidget {
   /// Whether to show a close icon in the top-right corner.
   final bool showCloseButton;
 
+  /// Optional background color.
+  final Color? backgroundColor;
+
+  /// Optional border radius.
+  final double? borderRadius;
+
+  /// Optional text style for the title.
+  final TextStyle? titleStyle;
+
+  /// Optional text style for the content.
+  final TextStyle? contentStyle;
+
+  /// Optional elevation.
+  final double? elevation;
+
+  /// Optional shadow color.
+  final Color? shadowColor;
+
   /// Shows a dialog with the given configuration.
   static Future<T?> show<T>({
     required BuildContext context,
@@ -45,8 +69,14 @@ class AppDialog extends StatelessWidget {
     Widget? content,
     List<Widget>? actions,
     Widget? icon,
-    bool barrierDismissible = true,
+    bool barrierDismissible = false,
     bool showCloseButton = false,
+    Color? backgroundColor,
+    double? borderRadius,
+    TextStyle? titleStyle,
+    TextStyle? contentStyle,
+    double? elevation,
+    Color? shadowColor,
   }) {
     return showDialog<T>(
       context: context,
@@ -57,6 +87,12 @@ class AppDialog extends StatelessWidget {
         actions: actions,
         icon: icon,
         showCloseButton: showCloseButton,
+        backgroundColor: backgroundColor,
+        borderRadius: borderRadius,
+        titleStyle: titleStyle,
+        contentStyle: contentStyle,
+        elevation: elevation,
+        shadowColor: shadowColor,
       ),
     );
   }
@@ -72,12 +108,26 @@ class AppDialog extends StatelessWidget {
     AppButtonVariant cancelVariant = AppButtonVariant.ghost,
     bool showCloseButton = false,
     bool showCancelButton = true,
+    bool barrierDismissible = false,
+    Color? backgroundColor,
+    double? borderRadius,
+    TextStyle? titleStyle,
+    TextStyle? contentStyle,
+    double? elevation,
+    Color? shadowColor,
   }) {
     return showDialog<bool>(
       context: context,
+      barrierDismissible: barrierDismissible,
       builder: (context) => AppDialog(
         title: title,
         showCloseButton: showCloseButton,
+        backgroundColor: backgroundColor,
+        borderRadius: borderRadius,
+        titleStyle: titleStyle,
+        contentStyle: contentStyle,
+        elevation: elevation,
+        shadowColor: shadowColor,
         content: AppText(message, variant: AppTextVariant.bodyMedium),
         actions: [
           if (showCancelButton)
@@ -111,7 +161,7 @@ class AppDialog extends StatelessWidget {
                     ),
                     child: Text(
                       title!,
-                      style: AppTypography.titleLarge(context),
+                      style: titleStyle ?? AppTypography.titleLarge(context),
                     ),
                   ),
                 if (showCloseButton)
@@ -145,7 +195,14 @@ class AppDialog extends StatelessWidget {
         AppSpacing.l,
         AppSpacing.l,
       ),
-      shape: const RoundedRectangleBorder(borderRadius: AppRadius.roundedL),
+      backgroundColor: backgroundColor,
+      elevation: elevation,
+      shadowColor: shadowColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? AppRadius.roundedL.topLeft.x,
+        ),
+      ),
     );
   }
 }

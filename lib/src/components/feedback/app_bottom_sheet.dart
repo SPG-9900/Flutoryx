@@ -13,6 +13,8 @@ class AppBottomSheet extends StatelessWidget {
     required this.child,
     this.showDragHandle = true,
     this.padding,
+    this.backgroundColor,
+    this.borderRadius,
   });
 
   /// Optional title displayed at the top.
@@ -27,6 +29,12 @@ class AppBottomSheet extends StatelessWidget {
   /// Padding for the content.
   final EdgeInsets? padding;
 
+  /// Optional background color.
+  final Color? backgroundColor;
+
+  /// Optional top border radius.
+  final double? borderRadius;
+
   /// Shows a modal bottom sheet.
   static Future<T?> show<T>({
     required BuildContext context,
@@ -35,18 +43,25 @@ class AppBottomSheet extends StatelessWidget {
     bool showDragHandle = true,
     bool isDismissible = true,
     bool enableDrag = true,
+    Color? backgroundColor,
+    double? borderRadius,
   }) {
     return showModalBottomSheet<T>(
       context: context,
       isDismissible: isDismissible,
       enableDrag: enableDrag,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.l)),
+      backgroundColor: backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(borderRadius ?? AppRadius.l),
+        ),
       ),
       builder: (context) => AppBottomSheet(
         title: title,
         showDragHandle: showDragHandle,
+        backgroundColor: backgroundColor,
+        borderRadius: borderRadius,
         child: child,
       ),
     );
@@ -58,11 +73,15 @@ class AppBottomSheet extends StatelessWidget {
     String? title,
     required List<Widget> items,
     bool showDragHandle = true,
+    Color? backgroundColor,
+    double? borderRadius,
   }) {
     return show<T>(
       context: context,
       title: title,
       showDragHandle: showDragHandle,
+      backgroundColor: backgroundColor,
+      borderRadius: borderRadius,
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: items.length,
@@ -75,6 +94,12 @@ class AppBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(borderRadius ?? 28), // Default M3 radius
+        ),
+      ),
       padding:
           padding ??
           EdgeInsets.only(

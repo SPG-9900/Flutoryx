@@ -15,10 +15,6 @@ enum AppCardVariant {
   outlined,
 }
 
-/// A Material Design card with optional header and actions.
-///
-/// Provides a flexible container for content with support for titles,
-/// subtitles, leading/trailing widgets, and action buttons.
 class AppCard extends StatelessWidget {
   /// Creates a card.
   const AppCard({
@@ -35,6 +31,17 @@ class AppCard extends StatelessWidget {
     this.padding,
     this.margin,
     this.elevation,
+    this.backgroundColor,
+    this.borderRadius,
+    this.borderColor,
+    this.borderWidth,
+    this.titleStyle,
+    this.subtitleStyle,
+    this.headerPadding,
+    this.actionsPadding,
+    this.shadowColor,
+    this.actionsAlignment,
+    this.headerSpacing,
   });
 
   /// The visual style of the card.
@@ -73,9 +80,41 @@ class AppCard extends StatelessWidget {
   /// The elevation of the card (only applies to elevated variant).
   final double? elevation;
 
+  /// Optional background color override.
+  final Color? backgroundColor;
+
+  /// Optional border radius override.
+  final double? borderRadius;
+
+  /// Optional border color override.
+  final Color? borderColor;
+
+  /// Optional border width override.
+  final double? borderWidth;
+
+  /// Optional text style for the title.
+  final TextStyle? titleStyle;
+
+  /// Optional text style for the subtitle.
+  final TextStyle? subtitleStyle;
+
+  /// Optional padding for the header.
+  final EdgeInsetsGeometry? headerPadding;
+
+  /// Optional padding for the actions.
+  final EdgeInsetsGeometry? actionsPadding;
+
+  /// Optional shadow color.
+  final Color? shadowColor;
+
+  /// How the actions should be aligned.
+  final MainAxisAlignment? actionsAlignment;
+
+  /// Spacing between header elements.
+  final double? headerSpacing;
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final hasHeader =
         title != null ||
         subtitle != null ||
@@ -97,7 +136,7 @@ class AppCard extends StatelessWidget {
         if (child != null)
           Padding(
             padding: hasHeader
-                ? contentPadding.copyWith(top: AppSpacing.m)
+                ? contentPadding.copyWith(top: 0)
                 : contentPadding,
             child: child,
           ),
@@ -105,13 +144,13 @@ class AppCard extends StatelessWidget {
       ],
     );
 
-    final card = _buildCardByVariant(context, theme, cardContent);
+    final card = _buildCardByVariant(context, Theme.of(context), cardContent);
 
     if (onTap != null || onLongPress != null) {
       return InkWell(
         onTap: onTap,
         onLongPress: onLongPress,
-        borderRadius: BorderRadius.circular(AppRadius.m),
+        borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.m),
         child: card,
       );
     }
@@ -121,12 +160,12 @@ class AppCard extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.l),
+      padding: headerPadding ?? const EdgeInsets.all(AppSpacing.l),
       child: Row(
         children: [
           if (leading != null) ...[
             leading!,
-            const SizedBox(width: AppSpacing.m),
+            SizedBox(width: headerSpacing ?? AppSpacing.m),
           ],
           Expanded(
             child: Column(
@@ -134,21 +173,26 @@ class AppCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (title != null)
-                  Text(title!, style: AppTypography.titleLarge(context)),
+                  Text(
+                    title!,
+                    style: titleStyle ?? AppTypography.titleLarge(context),
+                  ),
                 if (subtitle != null) ...[
                   const SizedBox(height: 4),
                   Text(
                     subtitle!,
-                    style: AppTypography.bodyMedium(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                    style:
+                        subtitleStyle ??
+                        AppTypography.bodyMedium(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                   ),
                 ],
               ],
             ),
           ),
           if (trailing != null) ...[
-            const SizedBox(width: AppSpacing.m),
+            SizedBox(width: headerSpacing ?? AppSpacing.m),
             trailing!,
           ],
         ],
@@ -158,9 +202,9 @@ class AppCard extends StatelessWidget {
 
   Widget _buildActions() {
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.m),
+      padding: actionsPadding ?? const EdgeInsets.all(AppSpacing.m),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: actionsAlignment ?? MainAxisAlignment.end,
         children: actions!
             .map(
               (action) => Padding(
@@ -179,36 +223,51 @@ class AppCard extends StatelessWidget {
     Widget content,
   ) {
     final cardMargin = margin ?? EdgeInsets.zero;
+    final radius = borderRadius ?? AppRadius.m;
 
     switch (variant) {
       case AppCardVariant.elevated:
         return Card(
           elevation: elevation ?? 1,
           margin: cardMargin,
+          color: backgroundColor,
+          shadowColor: shadowColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.m),
+            borderRadius: BorderRadius.circular(radius),
+            side: borderColor != null
+                ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                : BorderSide.none,
           ),
           child: content,
         );
 
       case AppCardVariant.filled:
         return Card(
-          elevation: 0,
+          elevation: elevation ?? 0,
           margin: cardMargin,
-          color: theme.colorScheme.surfaceContainerHighest,
+          color: backgroundColor ?? theme.colorScheme.surfaceContainerHighest,
+          shadowColor: shadowColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.m),
+            borderRadius: BorderRadius.circular(radius),
+            side: borderColor != null
+                ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                : BorderSide.none,
           ),
           child: content,
         );
 
       case AppCardVariant.outlined:
         return Card(
-          elevation: 0,
+          elevation: elevation ?? 0,
           margin: cardMargin,
+          color: backgroundColor,
+          shadowColor: shadowColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.m),
-            side: BorderSide(color: theme.colorScheme.outline, width: 1),
+            borderRadius: BorderRadius.circular(radius),
+            side: BorderSide(
+              color: borderColor ?? theme.colorScheme.outline,
+              width: borderWidth ?? 1,
+            ),
           ),
           child: content,
         );
