@@ -19,6 +19,9 @@ export 'src/components/inputs/app_custom_dropdown.dart';
 export 'src/components/inputs/app_slider.dart';
 export 'src/components/inputs/app_search_field.dart';
 export 'src/components/inputs/app_chip.dart';
+export 'src/components/inputs/app_pin_input.dart';
+export 'src/components/inputs/app_date_picker.dart';
+export 'src/components/inputs/app_time_picker.dart';
 export 'src/components/containers/app_card.dart';
 
 // Navigation
@@ -37,6 +40,7 @@ export 'src/components/feedback/app_bottom_sheet.dart';
 export 'src/components/layout/app_divider.dart';
 export 'src/components/layout/app_expandable_tile.dart';
 export 'src/components/media/app_image.dart';
+export 'src/components/media/app_carousel.dart';
 export 'src/components/media/app_avatar.dart';
 
 // Utils

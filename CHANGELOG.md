@@ -1,5 +1,13 @@
 # Flutoryx UI Kit - CHANGELOG
 
+## [1.3.0] - 2025-12-30
+
+### Added
+- **Inputs**: `AppPinInput` for secure OTP/PIN entry with obscure text support.
+- **Inputs**: `AppDatePicker` supporting both calendar and range selection modes.
+- **Inputs**: `AppTimePicker` for elegant time selection.
+- **Media**: `AppCarousel` with support for auto-play, infinite scrolling, and custom viewports.
+
 ## [1.2.0] - 2025-12-20
 
 ### Added

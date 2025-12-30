@@ -4,7 +4,7 @@
 
 # Flutoryx UI Kit 🎨
 
-A professional-grade, Material 3 compliant Flutter UI library with **25+ hyper-customizable components**. Built for developers who need maximum flexibility without sacrificing the speed of a design system.
+A professional-grade, Material 3 compliant Flutter UI library with **29+ hyper-customizable components**. Built for developers who need maximum flexibility without sacrificing the speed of a design system.
 
 [![pub package](https://img.shields.io/pub/v/flutoryx.svg)](https://pub.dev/packages/flutoryx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -28,7 +28,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.2.0
+  flutoryx: ^1.3.0
 ```
 
 ### Basic Usage
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
 
 ---
 
-## 📦 Components Library (25)
+## 📦 Components Library (29)
 
 ### **Inputs & Forms**
 - **AppCustomDropdown**: Searchable, multi-select, avatar-ready, and animation-rich.
@@ -76,6 +76,9 @@ class MyApp extends StatelessWidget {
 - **AppSlider / AppRangeSlider**: Discrete and continuous value selection.
 - **AppSearchField**: Dedicated search input with clear/submit support.
 - **AppChip / AppChipGroup**: Input, filter, choice, and action variants.
+- **AppPinInput**: Secure OTP/PIN entry with obscure text support.
+- **AppDatePicker**: Calendar and range selection modes with full styling control.
+- **AppTimePicker**: Analog and input modes for time selection.
 
 ### **Buttons & Actions**
 - **AppButton**: 5 variants (Primary, Secondary, Outline, Ghost, Danger) + loading states.
@@ -100,6 +103,7 @@ class MyApp extends StatelessWidget {
 - **AppExpandableTile**: Smooth collapsible content sections.
 
 ### **Media & Content**
+- **AppCarousel**: Auto-play, infinite scroll, and custom viewport fractions.
 - **AppImage**: Network and asset images with performance-first loading.
 - **AppAvatar**: User avatars with image, initials, and icon fallback support.
 - **AppText**: 15 semantic variants with adaptive font scaling.

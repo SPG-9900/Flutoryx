@@ -250,8 +250,136 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               borderColor: AppColors.slate300,
               focusedBorderColor: AppColors.indigo500,
               borderRadius: 30,
-              prefixIcon: const Icon(Icons.search, color: AppColors.indigo500),
             ),
+            const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Pin / OTP Input',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            const AppPinInput(
+              length: 4,
+              boxBackgroundColor: AppColors.slate100,
+              boxBorderColor: AppColors.slate300,
+              activeBoxBorderColor: AppColors.green,
+              activeBoxBackgroundColor: AppColors.indigo50,
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppPinInput(
+              length: 6,
+              obscureText: true,
+              boxBackgroundColor: AppColors.slate100,
+              boxBorderColor: AppColors.slate300,
+              activeBoxBorderColor: AppColors.indigo500,
+              activeBoxBackgroundColor: AppColors.indigo50,
+            ),
+            const SizedBox(height: AppSpacing.l),
+            const AppDivider.horizontal(),
+
+            const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Date Picker (Range)',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppDatePicker(
+              initialDate: DateTime.now(),
+              initialEndDate: DateTime.now().add(const Duration(days: 6)),
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2030),
+              mode: AppDatePickerMode.range,
+              rangeColor: AppColors.teal100,
+              selectedDayColor: AppColors.teal600,
+              todayColor: AppColors.teal600,
+              onRangeChanged: (start, end) {},
+              onCancel: () {},
+              onApply: (start, end) {},
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppButton(
+              label: 'Open Date Picker Dialog',
+              onPressed: () async {
+                final result = await AppDatePicker.show(
+                  context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2030),
+                );
+                if (result != null) {
+                  debugPrint('Selected: $result');
+                }
+              },
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppText('Time Picker', variant: AppTextVariant.titleSmall),
+            const SizedBox(height: AppSpacing.s),
+            AppTimePicker(
+              initialTime: TimeOfDay.now(),
+              // dialBackgroundColor: AppColors.green,
+              onTimeChanged: (time) {},
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppButton(
+              label: 'Open Time Picker Dialog',
+              onPressed: () async {
+                final result = await AppTimePicker.show(
+                  context,
+                  initialTime: TimeOfDay.now(),
+                  activeColor: AppColors.indigo500,
+                );
+                if (result != null && context.mounted) {
+                  debugPrint('Selected Time: ${result.format(context)}');
+                }
+              },
+            ),
+          ]),
+
+          // Media & Layout
+          _buildSection('Media & Layout', [
+            const SizedBox(height: AppSpacing.l),
+            const AppText(
+              'Carousel - "Peek" Viewport & Auto-Play',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppCarousel(
+              height: 150,
+              autoPlay: true,
+              viewportFraction: 0.85,
+              onItemTap: (index) => debugPrint('Tapped slide $index'),
+              items: List.generate(
+                5,
+                (i) => _CarouselCard(index: i, color: AppColors.slate700),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.l),
+            const AppText(
+              'Carousel - Custom Styling & Images',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppCarousel(
+              height: 200,
+              viewportFraction: 0.8,
+              enlargeFactor: 0.2,
+              activeIndicatorColor: AppColors.teal500,
+              indicatorAlignment: Alignment.bottomRight,
+              items: [
+                AppImage.network(
+                  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=600',
+                  fit: BoxFit.cover,
+                ),
+                AppImage.network(
+                  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600',
+                  fit: BoxFit.cover,
+                ),
+                AppImage.network(
+                  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600',
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.l),
           ]),
 
           // Checkboxes & Switches
@@ -823,6 +951,45 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
         const SizedBox(height: AppSpacing.m),
         ...children,
       ],
+    );
+  }
+}
+
+class _CarouselCard extends StatelessWidget {
+  const _CarouselCard({required this.index, this.color});
+  final int index;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            color ?? AppColors.indigo500,
+            (color ?? AppColors.indigo500).withValues(alpha: 0.7),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.image, color: Colors.white, size: 40),
+            const SizedBox(height: AppSpacing.s),
+            Text(
+              'Slide ${index + 1}',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
