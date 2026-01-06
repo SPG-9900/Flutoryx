@@ -26,6 +26,7 @@ export 'src/components/containers/app_card.dart';
 
 // Navigation
 export 'src/components/navigation/app_navigation_bar.dart';
+export 'src/components/navigation/app_header.dart';
 
 // Feedback
 export 'src/components/feedback/app_snackbar.dart';

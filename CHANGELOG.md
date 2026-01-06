@@ -1,5 +1,10 @@
 # Flutoryx UI Kit - CHANGELOG
 
+## [1.3.1] - 2026-01-06
+
+### Added
+- **Navigation**: `AppHeader` premium top app bar component with full customization support.
+
 ## [1.3.0] - 2025-12-30
 
 ### Added

@@ -74,11 +74,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const AppText(
-          'Flutoryx Showcase',
-          variant: AppTextVariant.titleLarge,
-        ),
+      appBar: AppHeader(
+        title: 'Flutoryx Showcase',
         actions: [
           AppIconButton(
             icon: widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,

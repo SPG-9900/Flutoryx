@@ -86,6 +86,7 @@ class MyApp extends StatelessWidget {
 
 ### **Navigation**
 - **AppNavigationBar**: Premium bottom bar with indicator and label support.
+- **AppHeader**: Premium top app bar with full customization support.
 
 ### **Feedback & Status**
 - **AppSnackBar**: 4 context-aware types (Success, Error, Warning, Info) with floating support.
