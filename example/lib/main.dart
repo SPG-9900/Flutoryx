@@ -857,7 +857,6 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             ),
           ]),
 
-          // Advanced Components
           _buildSection('Advanced (Skeleton & Empty State)', [
             Row(
               children: [
@@ -905,6 +904,46 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             ),
           ]),
 
+          _buildSection('Robustness (Empty String Safety)', [
+            const AppText(
+              'These components now handle empty strings without crashing:',
+              variant: AppTextVariant.bodySmall,
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const Row(
+              children: [
+                AppAvatar.image(
+                  imageUrl: '', // Empty URL -> Falls back to icon
+                  size: AppAvatarSize.medium,
+                ),
+                SizedBox(width: AppSpacing.m),
+                AppImage.network(
+                  '', // Empty path -> Shows error widget
+                  width: 64,
+                  height: 64,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.m),
+            AppCustomDropdown<String>(
+              labelText: 'Dropdown with empty avatar URL',
+              hintText: 'Select an item',
+              items: const [
+                AppDropdownItem(
+                  value: '1',
+                  label: 'Empty Avatar (Falls back to initials)',
+                  avatarUrl: '', // Empty URL
+                  initials: 'EA',
+                ),
+                AppDropdownItem(
+                  value: '2',
+                  label: 'Valid Avatar',
+                  avatarUrl: 'https://i.pravatar.cc/150?u=2',
+                ),
+              ],
+              onChanged: (value) {},
+            ),
+          ]),
           _buildSection('Navigation Bar', [
             const AppText(
               'Interactive Bottom Navigation Bar:',

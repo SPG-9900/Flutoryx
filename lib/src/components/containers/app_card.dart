@@ -113,6 +113,60 @@ class AppCard extends StatelessWidget {
   /// Spacing between header elements.
   final double? headerSpacing;
 
+  /// Creates a copy of this card with the given fields replaced by the new values.
+  AppCard copyWith({
+    AppCardVariant? variant,
+    String? title,
+    String? subtitle,
+    Widget? leading,
+    Widget? trailing,
+    Widget? child,
+    List<Widget>? actions,
+    VoidCallback? onTap,
+    VoidCallback? onLongPress,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+    double? elevation,
+    Color? backgroundColor,
+    double? borderRadius,
+    Color? borderColor,
+    double? borderWidth,
+    TextStyle? titleStyle,
+    TextStyle? subtitleStyle,
+    EdgeInsetsGeometry? headerPadding,
+    EdgeInsetsGeometry? actionsPadding,
+    Color? shadowColor,
+    MainAxisAlignment? actionsAlignment,
+    double? headerSpacing,
+  }) {
+    return AppCard(
+      key: key,
+      variant: variant ?? this.variant,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      leading: leading ?? this.leading,
+      trailing: trailing ?? this.trailing,
+      child: child ?? this.child,
+      actions: actions ?? this.actions,
+      onTap: onTap ?? this.onTap,
+      onLongPress: onLongPress ?? this.onLongPress,
+      padding: padding ?? this.padding,
+      margin: margin ?? this.margin,
+      elevation: elevation ?? this.elevation,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      titleStyle: titleStyle ?? this.titleStyle,
+      subtitleStyle: subtitleStyle ?? this.subtitleStyle,
+      headerPadding: headerPadding ?? this.headerPadding,
+      actionsPadding: actionsPadding ?? this.actionsPadding,
+      shadowColor: shadowColor ?? this.shadowColor,
+      actionsAlignment: actionsAlignment ?? this.actionsAlignment,
+      headerSpacing: headerSpacing ?? this.headerSpacing,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final hasHeader =
@@ -130,7 +184,7 @@ class AppCard extends StatelessWidget {
 
     final cardContent = Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (headerWidget != null) headerWidget,
         if (child != null)
@@ -138,7 +192,7 @@ class AppCard extends StatelessWidget {
             padding: hasHeader
                 ? contentPadding.copyWith(top: 0)
                 : contentPadding,
-            child: child,
+            child: child!,
           ),
         if (actions != null && actions!.isNotEmpty) _buildActions(),
       ],
@@ -147,11 +201,17 @@ class AppCard extends StatelessWidget {
     final card = _buildCardByVariant(context, Theme.of(context), cardContent);
 
     if (onTap != null || onLongPress != null) {
-      return InkWell(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.m),
-        child: card,
+      return Padding(
+        padding: margin ?? EdgeInsets.zero,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            onLongPress: onLongPress,
+            borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.m),
+            child: card is Card ? card.copyWith(margin: EdgeInsets.zero) : card,
+          ),
+        ),
       );
     }
 
@@ -272,5 +332,23 @@ class AppCard extends StatelessWidget {
           child: content,
         );
     }
+  }
+}
+
+extension on Card {
+  Card copyWith({EdgeInsetsGeometry? margin}) {
+    return Card(
+      key: key,
+      color: color,
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      elevation: elevation,
+      shape: shape,
+      borderOnForeground: borderOnForeground,
+      margin: margin ?? this.margin,
+      clipBehavior: clipBehavior,
+      child: child,
+      semanticContainer: semanticContainer,
+    );
   }
 }

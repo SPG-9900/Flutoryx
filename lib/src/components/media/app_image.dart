@@ -1,3 +1,5 @@
+import 'dart:io' as io;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Source type for images.
@@ -59,6 +61,27 @@ class AppImage extends StatelessWidget {
   }) : source = AppImageSource.asset,
        path = assetPath;
 
+  /// Creates an image from a local file.
+  const AppImage.file(
+    String filePath, {
+    super.key,
+    this.width,
+    this.height,
+    this.fit = BoxFit.cover,
+    this.borderRadius,
+    this.loadingWidget,
+    this.errorWidget,
+    this.placeholder,
+    this.border,
+    this.boxShadow,
+    this.margin,
+    this.padding,
+    this.opacity,
+    this.color,
+    this.colorBlendMode,
+  }) : source = AppImageSource.file,
+       path = filePath;
+
   /// The source type of the image.
   final AppImageSource source;
 
@@ -110,6 +133,20 @@ class AppImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    if (path.isEmpty) {
+      return errorWidget ??
+          Container(
+            width: width,
+            height: height,
+            color: theme.colorScheme.surfaceContainerHighest,
+            child: Icon(
+              Icons.broken_image_outlined,
+              color: theme.colorScheme.onSurfaceVariant,
+              size: 48,
+            ),
+          );
+    }
 
     Widget imageWidget;
 
@@ -175,13 +212,52 @@ class AppImage extends StatelessWidget {
         break;
 
       case AppImageSource.file:
-        // File images would require dart:io which isn't available on web
-        imageWidget = Container(
-          width: width,
-          height: height,
-          color: theme.colorScheme.surfaceContainerHighest,
-          child: const Center(child: Text('File images not supported on web')),
-        );
+        if (kIsWeb) {
+          // On web, XFile.path is a blob URL, so we use Image.network
+          imageWidget = Image.network(
+            path,
+            width: width,
+            height: height,
+            fit: fit,
+            color: color,
+            colorBlendMode: colorBlendMode,
+            errorBuilder: (context, error, stackTrace) {
+              return errorWidget ??
+                  Container(
+                    width: width,
+                    height: height,
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    child: Icon(
+                      Icons.broken_image_outlined,
+                      color: theme.colorScheme.onSurfaceVariant,
+                      size: 48,
+                    ),
+                  );
+            },
+          );
+        } else {
+          imageWidget = Image.file(
+            io.File(path),
+            width: width,
+            height: height,
+            fit: fit,
+            color: color,
+            colorBlendMode: colorBlendMode,
+            errorBuilder: (context, error, stackTrace) {
+              return errorWidget ??
+                  Container(
+                    width: width,
+                    height: height,
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    child: Icon(
+                      Icons.broken_image_outlined,
+                      color: theme.colorScheme.onSurfaceVariant,
+                      size: 48,
+                    ),
+                  );
+            },
+          );
+        }
         break;
     }
 

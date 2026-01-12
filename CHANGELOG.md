@@ -1,5 +1,16 @@
 # Flutoryx UI Kit - CHANGELOG
 
+## [1.3.2] - 2026-01-12
+
+### Added
+- **Media**: `AppImage.file` now supports local file images with cross-platform (Web/Mobile) compatibility.
+- **Containers**: `AppCard` now includes a `copyWith` method for easier widget composition.
+
+### Fixed
+- **Robustness**: Enhanced `AppAvatar`, `AppImage`, and `AppCustomDropdown` to handle empty URLs/paths gracefully without crashes.
+- **Stability**: Migrated `AppTypography` to `MediaQuery.maybeOf` to prevent crashes in non-Material contexts.
+- **UX**: Refined `AppCard` layout with `CrossAxisAlignment.stretch` and fixed `InkWell` ripple behavior when using margins.
+
 ## [1.3.1] - 2026-01-06
 
 ### Added

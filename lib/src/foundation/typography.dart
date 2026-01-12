@@ -12,7 +12,10 @@ abstract class AppTypography {
     double tablet,
     double desktop,
   ) {
-    final width = MediaQuery.of(context).size.width;
+    final mediaQuery = MediaQuery.maybeOf(context);
+    if (mediaQuery == null) return mobile;
+
+    final width = mediaQuery.size.width;
     if (width >= 1024) return desktop;
     if (width >= 600) return tablet;
     return mobile;

@@ -707,7 +707,7 @@ class _DropdownListItem<T> extends StatelessWidget {
     Widget? leadingWidget;
     if (item.leading != null) {
       leadingWidget = item.leading;
-    } else if (item.avatarUrl != null) {
+    } else if (item.avatarUrl != null && item.avatarUrl!.isNotEmpty) {
       leadingWidget = AppAvatar.image(
         imageUrl: item.avatarUrl!,
         size: AppAvatarSize.small,

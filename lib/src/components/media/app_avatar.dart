@@ -175,7 +175,7 @@ class AppAvatar extends StatelessWidget {
 
     Widget avatar;
 
-    if (imageUrl != null) {
+    if (imageUrl != null && imageUrl!.isNotEmpty) {
       avatar = Image.network(
         imageUrl!,
         width: _size,

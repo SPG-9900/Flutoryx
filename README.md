@@ -65,10 +65,10 @@ class MyApp extends StatelessWidget {
 
 ---
 
-## 📦 Components Library (29)
+## 📦 Components Library (30+)
 
 ### **Inputs & Forms**
-- **AppCustomDropdown**: Searchable, multi-select, avatar-ready, and animation-rich.
+- **AppCustomDropdown**: Searchable, multi-select, avatar-ready, and animation-rich. Robust handling of empty data.
 - **AppTextFormField**: Includes password visibility toggle and validation.
 - **AppCheckbox**: Modern M3 checkbox with labels and error states.
 - **AppSwitch**: Adaptive switches with flexible label positioning.
@@ -99,15 +99,15 @@ class MyApp extends StatelessWidget {
 - **AppEmptyState**: Icon + Title + Subtitle template for "No Data" screens.
 
 ### **Layout & Containers**
-- **AppCard**: Elevated, filled, and outlined options with header/footer support.
+- **AppCard**: Elevated, filled, and outlined options with header/footer support. Now with `copyWith` for easier composition.
 - **AppDivider**: Horizontal and vertical dividers with optional center text.
 - **AppExpandableTile**: Smooth collapsible content sections.
 
 ### **Media & Content**
 - **AppCarousel**: Auto-play, infinite scroll, and custom viewport fractions.
-- **AppImage**: Network and asset images with performance-first loading.
-- **AppAvatar**: User avatars with image, initials, and icon fallback support.
-- **AppText**: 15 semantic variants with adaptive font scaling.
+- **AppImage**: Network, asset, and **file-based** images with performance-first loading and cross-platform safety.
+- **AppAvatar**: User avatars with image, initials, and icon fallback support. Safe handling of empty image URLs.
+- **AppText**: 15 semantic variants with adaptive font scaling. Robust `MediaQuery` integration.
 
 ---
 
