@@ -28,7 +28,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.3.2
+  flutoryx: ^1.3.3
 ```
 
 ### Basic Usage

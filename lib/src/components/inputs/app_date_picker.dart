@@ -130,6 +130,11 @@ class _AppDatePickerState extends State<AppDatePicker> {
   }
 
   void _handleDayTap(DateTime date) {
+    // Check if date is within bounds
+    if (date.isBefore(widget.firstDate) || date.isAfter(widget.lastDate)) {
+      return;
+    }
+
     if (widget.mode == AppDatePickerMode.single) {
       if (date != _selectedDate) {
         setState(() => _selectedDate = date);
@@ -372,6 +377,8 @@ class _AppDatePickerState extends State<AppDatePicker> {
 
   Widget _buildDayCell(DateTime date, ThemeData theme) {
     final isToday = _isSameDay(date, DateTime.now());
+    final isOutOfRange =
+        date.isBefore(widget.firstDate) || date.isAfter(widget.lastDate);
 
     // Selection Logic
     bool isSelected = false;
@@ -405,7 +412,11 @@ class _AppDatePickerState extends State<AppDatePicker> {
     TextStyle textStyle =
         widget.dayTextStyle ?? AppTypography.bodyMedium(context);
 
-    if (isRangeStart ||
+    if (isOutOfRange) {
+      textStyle = textStyle.copyWith(
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
+      );
+    } else if (isRangeStart ||
         isRangeEnd ||
         (isSelected && widget.mode == AppDatePickerMode.single)) {
       // Solid Pill cap
@@ -443,7 +454,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
     }
 
     return GestureDetector(
-      onTap: () => _handleDayTap(date),
+      onTap: isOutOfRange ? null : () => _handleDayTap(date),
       child: Container(
         margin: (isSelected && widget.mode == AppDatePickerMode.single)
             ? const EdgeInsets.symmetric(

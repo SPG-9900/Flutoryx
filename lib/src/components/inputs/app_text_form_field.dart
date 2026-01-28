@@ -24,6 +24,7 @@ class AppTextFormField extends StatefulWidget {
   final TextStyle? errorStyle;
   final EdgeInsetsGeometry? contentPadding;
   final Color? fillColor;
+  final int? maxLength;
 
   const AppTextFormField({
     super.key,
@@ -47,6 +48,7 @@ class AppTextFormField extends StatefulWidget {
     this.errorStyle,
     this.contentPadding,
     this.fillColor,
+    this.maxLength,
   });
 
   @override
@@ -152,6 +154,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       validator: widget.validator,
       onChanged: widget.onChanged,
       maxLines: widget.maxLines,
+      maxLength: widget.maxLength,
     );
   }
 }

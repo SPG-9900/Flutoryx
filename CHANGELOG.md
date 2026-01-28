@@ -1,4 +1,11 @@
-# Flutoryx UI Kit - CHANGELOG
+## [1.3.3] - 2026-01-29
+
+### Added
+- **Inputs**: `AppTextFormField` now supports the `maxLength` parameter, enabling character counters and input limits.
+
+### Fixed
+- **Inputs**: `AppDatePicker` now strictly enforces `firstDate` and `lastDate` range, disabling selection of dates outside the range (e.g., future dates for DOB).
+- **Validation**: `AppValidators.phone` updated to strictly require exactly 10 digits for better data integrity.
 
 ## [1.3.2] - 2026-01-12
 

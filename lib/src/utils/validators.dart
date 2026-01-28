@@ -26,18 +26,18 @@ class AppValidators {
     return null;
   }
 
-  /// Validates phone number format (supports various formats).
+  /// Validates phone number format (exactly 10 digits).
   static String? phone(String? value, [String? message]) {
     if (value == null || value.isEmpty) return null;
 
     // Remove common separators
     final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
 
-    // Check if it's a valid phone number (10-15 digits)
-    final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
+    // Check if it's a valid phone number (exactly 10 digits)
+    final phoneRegex = RegExp(r'^[0-9]{10}$');
 
     if (!phoneRegex.hasMatch(cleaned)) {
-      return message ?? 'Please enter a valid phone number';
+      return message ?? 'Please enter a valid 10-digit phone number';
     }
     return null;
   }
