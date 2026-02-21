@@ -2,9 +2,40 @@
   <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/logo.png" width="800" alt="Flutoryx Logo" />
 </p>
 
+## ✨ Screenshots Gallery
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676310.png" width="30%" alt="Screenshot 1" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676334.png" width="30%" alt="Screenshot 2" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676343.png" width="30%" alt="Screenshot 3" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676350.png" width="30%" alt="Screenshot 4" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676357.png" width="30%" alt="Screenshot 5" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676363.png" width="30%" alt="Screenshot 6" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676372.png" width="30%" alt="Screenshot 7" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676377.png" width="30%" alt="Screenshot 8" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676387.png" width="30%" alt="Screenshot 9" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676395.png" width="30%" alt="Screenshot 10" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676401.png" width="30%" alt="Screenshot 11" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676421.png" width="30%" alt="Screenshot 12" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676439.png" width="30%" alt="Screenshot 13" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676467.png" width="30%" alt="Screenshot 14" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676474.png" width="30%" alt="Screenshot 15" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676478.png" width="30%" alt="Screenshot 16" />
+</p>
+
 # Flutoryx UI Kit 🎨
 
-A professional-grade, Material 3 compliant Flutter UI library with **29+ hyper-customizable components**. Built for developers who need maximum flexibility without sacrificing the speed of a design system.
+A professional-grade, Material 3 compliant Flutter UI library with **35+ hyper-customizable components**. Built for developers who need maximum flexibility without sacrificing the speed of a design system.
 
 [![pub package](https://img.shields.io/pub/v/flutoryx.svg)](https://pub.dev/packages/flutoryx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -65,7 +96,7 @@ class MyApp extends StatelessWidget {
 
 ---
 
-## 📦 Components Library (30+)
+## 📦 Components Library (35+)
 
 ### **Inputs & Forms**
 - **AppCustomDropdown**: Searchable, multi-select, avatar-ready, and animation-rich. Robust handling of empty data.
@@ -73,7 +104,8 @@ class MyApp extends StatelessWidget {
 - **AppCheckbox**: Modern M3 checkbox with labels and error states.
 - **AppSwitch**: Adaptive switches with flexible label positioning.
 - **AppRadio / AppRadioGroup**: Type-safe single selection.
-- **AppSlider / AppRangeSlider**: Discrete and continuous value selection.
+- **AppSlider / AppRangeSlider**: Discrete and continuous value selection, handling both single values and multi-thumb ranges natively.
+- **AppRatingBar**: Interactive rating components supporting custom fractional precision, read-only modes, and completely custom icons.
 - **AppSearchField**: Dedicated search input with clear/submit support.
 - **AppChip / AppChipGroup**: Input, filter, choice, and action variants.
 - **AppPinInput**: Secure OTP/PIN entry with obscure text support.
@@ -87,10 +119,14 @@ class MyApp extends StatelessWidget {
 ### **Navigation**
 - **AppNavigationBar**: Premium bottom bar with indicator and label support.
 - **AppHeader**: Premium top app bar with full customization support.
+- **AppStepper**: Interactive vertical and horizontal multi-step flows with granular active/inactive color theming.
 
 ### **Feedback & Status**
+- **AppToast**: Standalone floating overlay messages managed via `AppToastManager` that never conflict with the Scaffold.
 - **AppSnackBar**: 4 context-aware types (Success, Error, Warning, Info) with floating support.
 - **AppBadge / AppDotBadge**: Notification and status indicators.
+- **AppTag**: Compact native categorization indicators (filled, light, outlined variations).
+- **AppTimeline**: Beautifully constructed chronological event streams leveraging intrinsic sizes.
 - **AppLoader**: Circular and linear progress indicators.
 - **AppTooltip**: Customizable positioning and timing.
 - **AppDialog**: Confirmation and custom modal dialogs.
@@ -99,6 +135,7 @@ class MyApp extends StatelessWidget {
 - **AppEmptyState**: Icon + Title + Subtitle template for "No Data" screens.
 
 ### **Layout & Containers**
+- **AppAccordion**: Highly customizable and animated lists of collapsible sections supporting both grouped and isolated tile variants.
 - **AppCard**: Elevated, filled, and outlined options with header/footer support. Now with `copyWith` for easier composition.
 - **AppDivider**: Horizontal and vertical dividers with optional center text.
 - **AppExpandableTile**: Smooth collapsible content sections.

@@ -64,6 +64,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
   final _searchController = TextEditingController();
   final List<String> _selectedTags = ['Flutter'];
   int _selectedTab = 0;
+  int _currentStep = 0;
+  double _rating = 3.5;
 
   @override
   void dispose() {
@@ -549,8 +551,33 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             ),
           ]),
 
-          // Sliders
-          _buildSection('Sliders', [
+          // Sliders & Ratings
+          _buildSection('Sliders & Ratings', [
+            AppRatingBar(
+              rating: _rating,
+              onRatingChanged: (rating) => setState(() => _rating = rating),
+              size: 36,
+              filledColor: AppColors.orange500,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            const AppText(
+              'Highly Customized Rating:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppRatingBar(
+              rating: 4.5,
+              maxRating: 7,
+              isReadOnly: true,
+              filledIcon: Icons.favorite,
+              emptyIcon: Icons.favorite_border,
+              halfFilledIcon: Icons.favorite,
+              filledColor: AppColors.red600,
+              emptyColor: AppColors.red100,
+              size: 42,
+              spacing: 8,
+            ),
+            const SizedBox(height: AppSpacing.l),
             AppSlider(
               value: _volume,
               onChanged: (value) => setState(() => _volume = value),
@@ -585,8 +612,34 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             ),
           ]),
 
-          // Chips
-          _buildSection('Chips', [
+          // Chips & Tags
+          _buildSection('Chips & Tags', [
+            Wrap(
+              spacing: AppSpacing.s,
+              children: [
+                const AppTag(
+                  label: 'New',
+                  variant: AppTagVariant.filled,
+                  color: AppColors.indigo600,
+                ),
+                const AppTag(
+                  label: 'Pending',
+                  variant: AppTagVariant.light,
+                  color: AppColors.orange600,
+                ),
+                const AppTag(
+                  label: 'Archived',
+                  variant: AppTagVariant.outlined,
+                  color: AppColors.grey600,
+                ),
+                const AppTag(
+                  label: 'Verified',
+                  icon: Icons.verified,
+                  color: AppColors.green600,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.m),
             AppChipGroup(
               chips: [
                 AppChip(
@@ -744,7 +797,29 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                   ),
                   variant: AppButtonVariant.outline,
                 ),
+                AppButton(
+                  label: 'Toast Notification',
+                  onPressed: () => AppToastManager.show(
+                    context,
+                    message: 'Action completed successfully!',
+                    type: AppToastType.success,
+                    action: 'Undo',
+                    onAction: () => debugPrint('Undo tapped'),
+                  ),
+                  variant: AppButtonVariant.outline,
+                ),
               ],
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Inline Toast Preview:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            const AppToast(
+              message: 'This is what a toast looks like',
+              type: AppToastType.success,
+              icon: Icons.check_circle_outline,
             ),
             const SizedBox(height: AppSpacing.m),
             Row(
@@ -944,6 +1019,182 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               onChanged: (value) {},
             ),
           ]),
+
+          _buildSection('Stepper', [
+            AppStepper(
+              activeColor: AppColors.primary,
+              activeIconColor: AppColors.primary200,
+              currentStep: _currentStep,
+              onStepTapped: (index) => setState(() => _currentStep = index),
+              onStepContinue: () {
+                if (_currentStep < 2) setState(() => _currentStep += 1);
+              },
+              onStepCancel: () {
+                if (_currentStep > 0) setState(() => _currentStep -= 1);
+              },
+              steps: [
+                AppStep(
+                  title: const Text('Account Details'),
+                  content: const AppText('Enter your email and password here.'),
+                  isActive: _currentStep >= 0,
+                  state: _currentStep > 0
+                      ? AppStepState.complete
+                      : AppStepState.indexed,
+                ),
+                AppStep(
+                  title: const Text('Profile setup'),
+                  content: const AppText(
+                    'Upload an avatar and enter your name.',
+                  ),
+                  isActive: _currentStep >= 1,
+                  state: _currentStep > 1
+                      ? AppStepState.complete
+                      : AppStepState.indexed,
+                ),
+                AppStep(
+                  title: const Text('Review & Finish'),
+                  content: const AppText('Review your details and finalize.'),
+                  isActive: _currentStep >= 2,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.l),
+            const AppText(
+              'Horizontal Stepper with Custom Margins:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppStepper(
+              type: AppStepperType.horizontal,
+              currentStep: 1,
+              activeColor: AppColors.teal100,
+              activeIconColor: AppColors.teal800,
+              steps: [
+                AppStep(
+                  title: const Text('Cart'),
+                  content: const SizedBox.shrink(),
+                  isActive: true,
+                  state: AppStepState.complete,
+                ),
+                AppStep(
+                  title: const Text('Address'),
+                  content: const AppText('Enter shipping details.'),
+                  isActive: true,
+                  state: AppStepState.editing,
+                ),
+                AppStep(
+                  title: const Text('Payment'),
+                  content: const SizedBox.shrink(),
+                ),
+              ],
+              onStepTapped: (_) {},
+            ),
+          ]),
+
+          _buildSection('Accordion', [
+            AppAccordion(
+              items: [
+                AppAccordionItem(
+                  title: 'What is Flutoryx?',
+                  content: const AppText(
+                    'Flutoryx is a beautiful, comprehensive Material 3 UI kit for Flutter.',
+                  ),
+                  leading: const Icon(Icons.info_outline),
+                ),
+                AppAccordionItem(
+                  title: 'How do I use it?',
+                  content: const AppText(
+                    'Import the library and use the components!',
+                  ),
+                  leading: const Icon(Icons.code),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Separated Accordion:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppAccordion(
+              separated: true,
+              items: [
+                AppAccordionItem(
+                  title: 'Advanced Settings',
+                  content: const AppText(
+                    'Configure your deeply nested advanced settings here.',
+                  ),
+                  leading: const Icon(Icons.settings),
+                ),
+                AppAccordionItem(
+                  title: 'Privacy Options',
+                  content: const AppText(
+                    'Manage what data you share with the application.',
+                  ),
+                  leading: const Icon(Icons.security),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.m),
+            const AppText(
+              'Custom Colored Accordion:',
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppAccordion(
+              backgroundColor: AppColors.indigo50,
+              expandedBackgroundColor: AppColors.indigo100,
+              dividerColor: AppColors.indigo200,
+              borderColor: AppColors.indigo600,
+              borderWidth: 2,
+              borderRadius: 24,
+              titleStyle: AppTypography.titleMedium(
+                context,
+              ).copyWith(color: AppColors.indigo900),
+              items: [
+                AppAccordionItem(
+                  title: 'Special Indigo Section',
+                  content: const AppText(
+                    'This looks very different from the standard surface color!',
+                  ),
+                  leading: const Icon(
+                    Icons.palette,
+                    color: AppColors.indigo600,
+                  ),
+                ),
+                AppAccordionItem(
+                  title: 'Another Indigo Section',
+                  content: const AppText('Fully customized theming.'),
+                ),
+              ],
+            ),
+          ]),
+
+          _buildSection('Timeline', [
+            AppTimeline(
+              items: const [
+                AppTimelineItem(
+                  title: 'Order Placed',
+                  subtitle: 'We have received your order',
+                  time: '10:00 AM',
+                  isActive: true,
+                ),
+                AppTimelineItem(
+                  title: 'Processing',
+                  subtitle: 'Your order is being prepared',
+                  time: '11:30 AM',
+                  isActive: true,
+                ),
+                AppTimelineItem(
+                  title: 'Shipped',
+                  subtitle: 'Your order is on the way',
+                  time: 'Yesterday',
+                ),
+                AppTimelineItem(title: 'Delivered', time: 'Expected pending'),
+              ],
+            ),
+          ]),
+
           _buildSection('Navigation Bar', [
             const AppText(
               'Interactive Bottom Navigation Bar:',

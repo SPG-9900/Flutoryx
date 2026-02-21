@@ -146,24 +146,9 @@ class AppCard extends StatelessWidget {
       subtitle: subtitle ?? this.subtitle,
       leading: leading ?? this.leading,
       trailing: trailing ?? this.trailing,
-      child: child ?? this.child,
-      actions: actions ?? this.actions,
-      onTap: onTap ?? this.onTap,
-      onLongPress: onLongPress ?? this.onLongPress,
-      padding: padding ?? this.padding,
-      margin: margin ?? this.margin,
-      elevation: elevation ?? this.elevation,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      borderRadius: borderRadius ?? this.borderRadius,
-      borderColor: borderColor ?? this.borderColor,
-      borderWidth: borderWidth ?? this.borderWidth,
-      titleStyle: titleStyle ?? this.titleStyle,
-      subtitleStyle: subtitleStyle ?? this.subtitleStyle,
-      headerPadding: headerPadding ?? this.headerPadding,
-      actionsPadding: actionsPadding ?? this.actionsPadding,
-      shadowColor: shadowColor ?? this.shadowColor,
       actionsAlignment: actionsAlignment ?? this.actionsAlignment,
       headerSpacing: headerSpacing ?? this.headerSpacing,
+      child: child ?? this.child,
     );
   }
 
@@ -186,7 +171,7 @@ class AppCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (headerWidget != null) headerWidget,
+        if (headerWidget != null) ...[headerWidget],
         if (child != null)
           Padding(
             padding: hasHeader
@@ -347,8 +332,8 @@ extension on Card {
       borderOnForeground: borderOnForeground,
       margin: margin ?? this.margin,
       clipBehavior: clipBehavior,
-      child: child,
       semanticContainer: semanticContainer,
+      child: child,
     );
   }
 }

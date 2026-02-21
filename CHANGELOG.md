@@ -1,6 +1,15 @@
-## [1.3.3] - 2026-01-29
+## [1.4.0] - 2026-02-21
 
 ### Added
+- **Navigation**: `AppStepper` component for interactive multi-step flows, supporting both vertical and horizontal layouts, complete with custom active/inactive coloring.
+- **Layout**: `AppAccordion` for grouped or separated expandable content sections, fully animated.
+- **Feedback**: `AppToast` and `AppToastManager` for lightweight, non-blocking floating notifications independent of the Scaffold.
+- **Feedback**: `AppTimeline` to construct beautiful chronological event streams using intrinsic sizing layout logic.
+- **Feedback**: `AppTag` for compact native categorizations spanning `filled`, `light`, and `outlined` variants.
+- **Inputs**: `AppRatingBar` supporting fractional precision, interactive gestures, read-only modes, and custom item sizes.
+- **Inputs**: Documented previously bundled `AppRangeSlider` functionality alongside the `AppSlider`.
+
+## [1.3.3] - 2026-01-29### Added
 - **Inputs**: `AppTextFormField` now supports the `maxLength` parameter, enabling character counters and input limits.
 
 ### Fixed
