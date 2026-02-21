@@ -37,7 +37,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688711.png" width="30%" alt="Screenshot 19" />
   <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688752.png" width="30%" alt="Screenshot 20" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688796.png" width="30%" alt="Screenshot 21" />
+
 </p>
 
 # Flutoryx UI Kit 🎨
