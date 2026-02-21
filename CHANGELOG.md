@@ -1,3 +1,8 @@
+## [1.4.1] - 2026-02-21
+
+### Fixed
+- **Documentation**: Updated README dependency usage snippet added high-quality screenshots.
+
 ## [1.4.0] - 2026-02-21
 
 ### Added
