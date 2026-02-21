@@ -420,7 +420,7 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
           ]),
 
           // Custom Dropdowns
-          _buildSection('Custom Dropdowns (Overlay)', [
+          _buildSection('Custom Dropdowns', [
             AppCustomDropdown<String>(
               labelText: 'Searchable Countries (Single)',
               hintText: 'Search and select',

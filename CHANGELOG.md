@@ -1,3 +1,8 @@
+## [1.4.2] - 2026-02-21
+
+### Added
+- **Documentation**: Updated README with newest component screenshots.
+
 ## [1.4.1] - 2026-02-21
 
 ### Fixed

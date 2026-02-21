@@ -5,32 +5,39 @@
 ## ✨ Screenshots Gallery
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676310.png" width="30%" alt="Screenshot 1" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676334.png" width="30%" alt="Screenshot 2" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688348%20copy.png" width="30%" alt="Screenshot 1" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688377%20copy.png" width="30%" alt="Screenshot 2" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688394%20copy.png" width="30%" alt="Screenshot 3" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676343.png" width="30%" alt="Screenshot 3" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676350.png" width="30%" alt="Screenshot 4" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676357.png" width="30%" alt="Screenshot 5" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688433%20copy.png" width="30%" alt="Screenshot 4" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688445%20copy.png" width="30%" alt="Screenshot 5" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688459.png" width="30%" alt="Screenshot 6" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676363.png" width="30%" alt="Screenshot 6" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676372.png" width="30%" alt="Screenshot 7" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676377.png" width="30%" alt="Screenshot 8" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688464.png" width="30%" alt="Screenshot 7" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688469.png" width="30%" alt="Screenshot 8" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688473.png" width="30%" alt="Screenshot 9" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676387.png" width="30%" alt="Screenshot 9" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676395.png" width="30%" alt="Screenshot 10" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676401.png" width="30%" alt="Screenshot 11" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688479.png" width="30%" alt="Screenshot 10" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688486.png" width="30%" alt="Screenshot 11" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688506.png" width="30%" alt="Screenshot 12" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676421.png" width="30%" alt="Screenshot 12" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676439.png" width="30%" alt="Screenshot 13" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676467.png" width="30%" alt="Screenshot 14" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688515.png" width="30%" alt="Screenshot 13" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688564.png" width="30%" alt="Screenshot 14" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688605.png" width="30%" alt="Screenshot 15" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676474.png" width="30%" alt="Screenshot 15" />
-  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771676478.png" width="30%" alt="Screenshot 16" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688615.png" width="30%" alt="Screenshot 16" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688656.png" width="30%" alt="Screenshot 17" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688684.png" width="30%" alt="Screenshot 18" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688711.png" width="30%" alt="Screenshot 19" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688752.png" width="30%" alt="Screenshot 20" />
+  <img src="https://raw.githubusercontent.com/SPG-9900/flutoryx/main/assets/images/Screenshot_1771688796.png" width="30%" alt="Screenshot 21" />
 </p>
 
 # Flutoryx UI Kit 🎨
@@ -59,7 +66,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.4.1
+  flutoryx: ^1.4.2
 ```
 
 ### Basic Usage
