@@ -66,7 +66,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.4.2
+  flutoryx: ^1.5.0
 ```
 
 ### Basic Usage
@@ -131,6 +131,7 @@ class MyApp extends StatelessWidget {
 ### **Feedback & Status**
 - **AppToast**: Standalone floating overlay messages managed via `AppToastManager` that never conflict with the Scaffold.
 - **AppSnackBar**: 4 context-aware types (Success, Error, Warning, Info) with floating support.
+- **AppConfetti**: Customizable, high-performance particle engine supporting localized and **full-screen global explosions** via native `Overlay` integration.
 - **AppBadge / AppDotBadge**: Notification and status indicators.
 - **AppTag**: Compact native categorization indicators (filled, light, outlined variations).
 - **AppTimeline**: Beautifully constructed chronological event streams leveraging intrinsic sizes.
@@ -143,6 +144,7 @@ class MyApp extends StatelessWidget {
 
 ### **Layout & Containers**
 - **AppAccordion**: Highly customizable and animated lists of collapsible sections supporting both grouped and isolated tile variants.
+- **AppScratchcard**: Interactive revelation component with native mask erasing, supporting solid colors and **complex gradients** for the cover.
 - **AppCard**: Elevated, filled, and outlined options with header/footer support. Now with `copyWith` for easier composition.
 - **AppDivider**: Horizontal and vertical dividers with optional center text.
 - **AppExpandableTile**: Smooth collapsible content sections.

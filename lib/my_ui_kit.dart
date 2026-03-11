@@ -24,6 +24,7 @@ export 'src/components/inputs/app_date_picker.dart';
 export 'src/components/inputs/app_time_picker.dart';
 export 'src/components/inputs/app_rating_bar.dart';
 export 'src/components/containers/app_card.dart';
+export 'src/components/containers/app_scratchcard.dart';
 
 // Navigation
 export 'src/components/navigation/app_navigation_bar.dart';
@@ -43,6 +44,7 @@ export 'src/components/feedback/app_bottom_sheet.dart';
 export 'src/components/feedback/app_toast.dart';
 export 'src/components/feedback/app_timeline.dart';
 export 'src/components/feedback/app_tag.dart';
+export 'src/components/feedback/app_confetti.dart';
 export 'src/components/layout/app_divider.dart';
 export 'src/components/layout/app_expandable_tile.dart';
 export 'src/components/layout/app_accordion.dart';

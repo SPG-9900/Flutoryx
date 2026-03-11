@@ -66,6 +66,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
   int _selectedTab = 0;
   int _currentStep = 0;
   double _rating = 3.5;
+  bool _isConfettiShooting = false;
+  bool _isStandaloneConfettiShooting = false;
 
   @override
   void dispose() {
@@ -693,8 +695,8 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
             ),
           ]),
 
-          // Cards
-          _buildSection('Cards', [
+          // Feedback Components
+          _buildSection('Feedback', [
             AppCard(
               variant: AppCardVariant.elevated,
               title: 'Elevated Card',
@@ -732,6 +734,157 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
               child: const AppText(
                 'Custom colors, radius, and border',
                 variant: AppTextVariant.bodyMedium,
+              ),
+            ),
+          ]),
+
+          // Scratchcard Showcase
+          _buildSection('Scratchcard Examples', [
+            const AppText(
+              '1. Basic Setup (+ Fullscreen Confetti on Win)',
+              variant: AppTextVariant.bodyMedium,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppCard(
+              backgroundColor: AppColors.indigo50,
+              borderColor: AppColors.indigo200,
+              padding: EdgeInsets
+                  .zero, // Remove padding so scratchcard fills the area
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  AppRadius.m,
+                ), // Clip corners
+                child: SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: AppConfetti(
+                    isShooting: _isConfettiShooting,
+                    particleCount: 250,
+                    blastVelocity: 30.0,
+                    fullScreen: true,
+                    child: AppScratchcard(
+                      strokeWidth: 40,
+                      minScratchPercentage: 0.5,
+                      coverColor: AppColors.slate300,
+                      onScratchCompleted: () {
+                        setState(() {
+                          _isConfettiShooting = true;
+                        });
+                        AppSnackBar.show(
+                          context,
+                          message: 'You revealed the prize!',
+                          type: AppSnackBarType.success,
+                        );
+                      },
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              size: 48,
+                              color: AppColors.orange500,
+                            ),
+                            const SizedBox(height: AppSpacing.m),
+                            const AppText(
+                              'You Won 500 Coins!',
+                              variant: AppTextVariant.titleMedium,
+                              color: AppColors.indigo900,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+
+            const AppText(
+              '2. Custom Cover (Gradient) - No Confetti',
+              variant: AppTextVariant.bodyMedium,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppCard(
+              backgroundColor: AppColors.rose50,
+              borderColor: AppColors.rose200,
+              padding: EdgeInsets.zero,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppRadius.m),
+                child: SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: AppScratchcard(
+                    strokeWidth: 50,
+                    minScratchPercentage: 0.6,
+                    coverGradient: const LinearGradient(
+                      colors: [AppColors.purple500, AppColors.pink500],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.card_giftcard,
+                            size: 48,
+                            color: AppColors.rose600,
+                          ),
+                          const SizedBox(height: AppSpacing.m),
+                          const AppText(
+                            'Amazon Gift Card!',
+                            variant: AppTextVariant.titleMedium,
+                            color: AppColors.rose900,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+
+            const AppText(
+              '3. Custom Cover (Image Icon & Small Brush)',
+              variant: AppTextVariant.bodyMedium,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            AppCard(
+              backgroundColor: AppColors.emerald50,
+              borderColor: AppColors.emerald200,
+              padding: EdgeInsets.zero,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppRadius.m),
+                child: SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: AppScratchcard(
+                    strokeWidth: 20, // Smaller brush size
+                    minScratchPercentage: 0.4,
+                    coverColor: AppColors.emerald700,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.smart_toy,
+                            size: 64,
+                            color: AppColors.emerald600,
+                          ),
+                          const SizedBox(height: AppSpacing.m),
+                          const AppText(
+                            'Robot Unlocked!',
+                            variant: AppTextVariant.titleMedium,
+                            color: AppColors.emerald900,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ]),
@@ -807,6 +960,28 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
                     onAction: () => debugPrint('Undo tapped'),
                   ),
                   variant: AppButtonVariant.outline,
+                ),
+                AppConfetti(
+                  isShooting: _isStandaloneConfettiShooting,
+                  particleCount: 50,
+                  blastVelocity: 15.0,
+                  child: AppButton(
+                    label: 'Trigger Confetti',
+                    variant: AppButtonVariant.primary,
+                    onPressed: () {
+                      // Reset and trigger next frame
+                      setState(() {
+                        _isStandaloneConfettiShooting = false;
+                      });
+                      Future.delayed(const Duration(milliseconds: 50), () {
+                        if (mounted) {
+                          setState(() {
+                            _isStandaloneConfettiShooting = true;
+                          });
+                        }
+                      });
+                    },
+                  ),
                 ),
               ],
             ),

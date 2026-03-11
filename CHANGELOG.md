@@ -1,3 +1,9 @@
+## [1.5.0] - 2026-03-11
+
+### Added
+- **Feedback**: `AppConfetti` component with a native particle engine and physics. Supports localized bursts and global full-screen explosions.
+- **Containers**: `AppScratchcard` for interactive reveal animations, supporting solid color or gradient covers with high-performance canvas erasing.
+
 ## [1.4.2] - 2026-02-21
 
 ### Added
