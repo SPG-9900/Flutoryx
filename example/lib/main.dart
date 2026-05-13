@@ -79,7 +79,29 @@ class _ComponentShowcaseState extends State<ComponentShowcase> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(
-        title: 'Flutoryx Showcase',
+        logo: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.xs),
+              decoration: BoxDecoration(
+                color: AppColors.indigo600,
+                borderRadius: BorderRadius.circular(AppRadius.s),
+              ),
+              child: const Icon(
+                Icons.auto_awesome,
+                color: AppColors.white,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s),
+            const AppText(
+              'Flutoryx',
+              variant: AppTextVariant.titleLarge,
+              // fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
         actions: [
           AppIconButton(
             icon: widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,

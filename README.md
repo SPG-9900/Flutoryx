@@ -66,7 +66,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.5.0
+  flutoryx: ^1.6.0
 ```
 
 ### Basic Usage
@@ -125,7 +125,7 @@ class MyApp extends StatelessWidget {
 
 ### **Navigation**
 - **AppNavigationBar**: Premium bottom bar with indicator and label support.
-- **AppHeader**: Premium top app bar with full customization support.
+- **AppHeader**: Premium top app bar supporting text titles and custom logo widgets (images/icons).
 - **AppStepper**: Interactive vertical and horizontal multi-step flows with granular active/inactive color theming.
 
 ### **Feedback & Status**

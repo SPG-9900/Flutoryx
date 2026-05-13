@@ -10,11 +10,15 @@ import '../../foundation/spacing.dart';
 /// This component implements [PreferredSizeWidget] and can be used directly in
 /// [Scaffold.appBar].
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
-  /// The primary widget displayed in the app bar.
+  /// The primary text displayed in the app bar.
   ///
-  /// Typically a [Text] widget containing a description of the current contents
-  /// of the app.
-  final String title;
+  /// Typically a description of the current contents of the app.
+  final String? title;
+
+  /// A widget to display as the logo/brand in the app bar.
+  ///
+  /// If provided, this will be displayed instead of the [title].
+  final Widget? logo;
 
   /// A widget to display before the [title].
   ///
@@ -58,7 +62,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   /// Creates a premium app header.
   const AppHeader({
     super.key,
-    required this.title,
+    this.title,
+    this.logo,
     this.leading,
     this.actions,
     this.centerTitle,
@@ -67,7 +72,10 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
     this.foregroundColor,
     this.bottom,
     this.systemOverlayStyle,
-  });
+  }) : assert(
+          title != null || logo != null,
+          'At least one of title or logo must be provided.',
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +86,16 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
     final effectiveForegroundColor = foregroundColor ?? colorScheme.onSurface;
 
     return AppBar(
-      title: Text(
-        title,
-        style: AppTypography.titleLarge(context).copyWith(
-          color: effectiveForegroundColor,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      title: logo ??
+          (title != null
+              ? Text(
+                  title!,
+                  style: AppTypography.titleLarge(context).copyWith(
+                    color: effectiveForegroundColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              : null),
       leading: leading,
       actions: actions != null
           ? [...actions!, const SizedBox(width: AppSpacing.s)]

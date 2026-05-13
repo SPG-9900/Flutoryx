@@ -1,5 +1,9 @@
-## [1.5.0] - 2026-03-11
+## [1.6.0] - 2026-05-13
 
+### Added
+- **Navigation**: `AppHeader` now supports custom `logo` widgets (images, icons, etc.) alongside or instead of text titles.
+
+## [1.5.0] - 2026-03-11
 ### Added
 - **Feedback**: `AppConfetti` component with a native particle engine and physics. Supports localized bursts and global full-screen explosions.
 - **Containers**: `AppScratchcard` for interactive reveal animations, supporting solid color or gradient covers with high-performance canvas erasing.
