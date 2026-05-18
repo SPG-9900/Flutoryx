@@ -1,3 +1,8 @@
+## [1.7.0] - 2026-05-18
+
+### Added
+- **Inputs**: Added `readOnly` support to `AppTextFormField` to restrict text modification while maintaining copy/selection capability.
+
 ## [1.6.0] - 2026-05-13
 
 ### Added

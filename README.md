@@ -66,7 +66,7 @@ Add `flutoryx` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutoryx: ^1.6.0
+  flutoryx: ^1.7.0
 ```
 
 ### Basic Usage
